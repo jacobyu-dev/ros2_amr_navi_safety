@@ -1,0 +1,18 @@
+1788374923.1694660 [INFO] [launch]: All log files can be found below /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-03-03-48-43-168558-jacob-dev-VMware-127118
+1788374923.1696258 [INFO] [launch]: Default logging verbosity is set to INFO
+1788374923.3904872 [INFO] [gazebo-1]: process started with pid [127180]
+1788374923.3918469 [INFO] [robot_state_publisher-2]: process started with pid [127181]
+1788374923.3919134 [INFO] [parameter_bridge-3]: process started with pid [127183]
+1788374925.3947027 [INFO] [create-4]: process started with pid [127227]
+1788374926.1411703 [INFO] [create-4]: process has finished cleanly [pid 127227]
+1788375177.8922067 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1788375182.9005959 [ERROR] [parameter_bridge-3]: process[parameter_bridge-3] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1788375182.9009957 [ERROR] [robot_state_publisher-2]: process[robot_state_publisher-2] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1788375182.9011471 [ERROR] [gazebo-1]: process[gazebo-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1788375182.9012618 [INFO] [parameter_bridge-3]: sending signal 'SIGTERM' to process[parameter_bridge-3]
+1788375182.9014776 [INFO] [robot_state_publisher-2]: sending signal 'SIGTERM' to process[robot_state_publisher-2]
+1788375182.9016609 [INFO] [gazebo-1]: sending signal 'SIGTERM' to process[gazebo-1]
+1788375182.9054041 [ERROR] [gazebo-1]: process has died [pid 127180, exit code -15, cmd 'ruby /opt/ros/jazzy/opt/gz_tools_vendor/bin/gz sim -r -s /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/install/amr_simulation_assets/share/amr_simulation_assets/worlds/empty/empty.sdf --force-version 8'].
+1788375182.9081316 [INFO] [launch]: process[gazebo-1] was required: shutting down launched system
+1788375183.0354557 [INFO] [parameter_bridge-3]: process has finished cleanly [pid 127183]
+1788375183.0383205 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 127181]

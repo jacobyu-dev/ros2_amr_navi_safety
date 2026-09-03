@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<!-- Adapted from Anastasios03git/autonomous-warehouse-amr moving_agv.sdf.
+     That repository has no LICENSE file. The actor skin is fetched at runtime
+     from the original public Fuel URL and is not redistributed here. -->
+<sdf version="1.9"><actor name="warehouse_worker"><skin><filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/walk.dae</filename><scale>1.0</scale></skin><animation name="walk"><filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/walk.dae</filename><interpolate_x>true</interpolate_x></animation><script><loop>true</loop><auto_start>true</auto_start><trajectory id="0" type="walk" tension="1.0"><waypoint><time>0</time><pose>-3 0 1 0 0 0</pose></waypoint><waypoint><time>10</time><pose>3 0 1 0 0 0</pose></waypoint><waypoint><time>11</time><pose>3 0 1 0 0 3.14159</pose></waypoint><waypoint><time>21</time><pose>-3 0 1 0 0 3.14159</pose></waypoint><waypoint><time>22</time><pose>-3 0 1 0 0 0</pose></waypoint></trajectory></script></actor></sdf>

@@ -1,0 +1,7 @@
+1788375114.6176858 [INFO] [launch]: All log files can be found below /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-03-03-51-54-617114-jacob-dev-VMware-128146
+1788375114.6177597 [INFO] [launch]: Default logging verbosity is set to INFO
+1788375114.9972644 [INFO] [gazebo-1]: process started with pid [128151]
+1788375114.9974182 [INFO] [robot_state_publisher-2]: process started with pid [128152]
+1788375114.9975491 [INFO] [parameter_bridge-3]: process started with pid [128153]
+1788375117.0006051 [INFO] [create-4]: process started with pid [128197]
+1788375118.9344735 [INFO] [create-4]: process has finished cleanly [pid 128197]

@@ -1,0 +1,38 @@
+[INFO] [launch]: All log files can be found below /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-03-03-54-27-170787-jacob-dev-VMware-128840
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gazebo-1]: process started with pid [128845]
+[INFO] [robot_state_publisher-2]: process started with pid [128847]
+[INFO] [parameter_bridge-3]: process started with pid [128848]
+[robot_state_publisher-2] [INFO] [1788375267.639743878] [robot_state_publisher]: Robot initialized
+[parameter_bridge-3] [INFO] [1788375267.658288522] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.659535369] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan (gz.msgs.LaserScan) -> /scan (sensor_msgs/msg/LaserScan)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.661565607] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/imu (gz.msgs.IMU) -> /imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.662265940] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/camera/image (gz.msgs.Image) -> /camera/image (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.662829499] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/camera/depth_image (gz.msgs.Image) -> /camera/depth_image (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.664066095] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/camera/points (gz.msgs.PointCloudPacked) -> /camera/points (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.665395248] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/camera/camera_info (gz.msgs.CameraInfo) -> /camera/camera_info (sensor_msgs/msg/CameraInfo)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.666270946] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom (gz.msgs.Odometry) -> /odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.668241465] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/gazebo_tf (gz.msgs.Pose_V) -> /gazebo_tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.669732731] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (gz.msgs.Model) -> /joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1788375267.679610911] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/cmd_vel (geometry_msgs/msg/Twist) -> /cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[INFO] [create-4]: process started with pid [128891]
+[create-4] [INFO] [1788375269.642951881] [spawn_mir]: Requesting list of world names.
+[create-4] [INFO] [1788375270.086819021] [spawn_mir]: Waiting messages on topic [/robot_description].
+[create-4] [INFO] [1788375270.107831939] [spawn_mir]: Entity creation successful.
+[gazebo-1] [1;33mWarning [parser_urdf.cc:1220][0m Attribute value string not set
+[gazebo-1] [1;33mWarning [parser_urdf.cc:1220][0m Attribute value string not set
+[gazebo-1] [1;33mWarning [parser_urdf.cc:1220][0m Attribute value string not set
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="mir"]/link[@name="base_footprint"]/sensor[@name="camera_sensor"]/gz_frame_id:<urdf-string>:L0]: XML Element[gz_frame_id], child of element[sensor], not defined in SDF. Copying[gz_frame_id] as children of [sensor].
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="mir"]/link[@name="base_footprint"]/sensor[@name="front_laser_sensor"]/gz_frame_id:<urdf-string>:L0]: XML Element[gz_frame_id], child of element[sensor], not defined in SDF. Copying[gz_frame_id] as children of [sensor].
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="mir"]/link[@name="base_footprint"]/sensor[@name="imu_sensor"]/gz_frame_id:<urdf-string>:L0]: XML Element[gz_frame_id], child of element[sensor], not defined in SDF. Copying[gz_frame_id] as children of [sensor].
+[INFO] [create-4]: process has finished cleanly [pid 128891]
+[gazebo-1] VMware: No 3D enabled (0, Success).
+[gazebo-1] libEGL warning: egl: failed to create dri2 screen
+[gazebo-1] VMware: No 3D enabled (0, Success).
+[gazebo-1] libEGL warning: egl: failed to create dri2 screen
+[gazebo-1] VMware: No 3D enabled (0, Success).
+[gazebo-1] libEGL warning: egl: failed to create dri2 screen
+[INFO] [create-5]: process started with pid [128953]
+[create-5] [INFO] [1788375271.657547666] [spawn_warehouse_worker]: Requesting list of world names.
+[create-5] [INFO] [1788375272.079718726] [spawn_warehouse_worker]: Entity creation successful.
+[INFO] [create-5]: process has finished cleanly [pid 128953]

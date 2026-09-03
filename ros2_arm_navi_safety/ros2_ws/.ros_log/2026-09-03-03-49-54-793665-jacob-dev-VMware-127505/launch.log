@@ -1,0 +1,18 @@
+1788374994.7948930 [INFO] [launch]: All log files can be found below /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-03-03-49-54-793665-jacob-dev-VMware-127505
+1788374994.7950425 [INFO] [launch]: Default logging verbosity is set to INFO
+1788374995.0216579 [INFO] [gazebo-1]: process started with pid [127566]
+1788374995.0217822 [INFO] [robot_state_publisher-2]: process started with pid [127567]
+1788374995.0218213 [INFO] [parameter_bridge-3]: process started with pid [127569]
+1788374997.0258315 [INFO] [create-4]: process started with pid [127612]
+1788374997.6776521 [INFO] [create-4]: process has finished cleanly [pid 127612]
+1788375177.8975728 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1788375182.9096646 [ERROR] [parameter_bridge-3]: process[parameter_bridge-3] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1788375182.9098787 [ERROR] [robot_state_publisher-2]: process[robot_state_publisher-2] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1788375182.9108214 [ERROR] [gazebo-1]: process[gazebo-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1788375182.9109952 [INFO] [parameter_bridge-3]: sending signal 'SIGTERM' to process[parameter_bridge-3]
+1788375182.9111645 [INFO] [robot_state_publisher-2]: sending signal 'SIGTERM' to process[robot_state_publisher-2]
+1788375182.9160783 [INFO] [gazebo-1]: sending signal 'SIGTERM' to process[gazebo-1]
+1788375182.9164426 [ERROR] [gazebo-1]: process has died [pid 127566, exit code -15, cmd 'ruby /opt/ros/jazzy/opt/gz_tools_vendor/bin/gz sim -r -s /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/install/amr_simulation_assets/share/amr_simulation_assets/worlds/empty/empty.sdf --force-version 8'].
+1788375182.9166436 [INFO] [launch]: process[gazebo-1] was required: shutting down launched system
+1788375183.0256038 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 127567]
+1788375183.0397787 [INFO] [parameter_bridge-3]: process has finished cleanly [pid 127569]

@@ -1,0 +1,11 @@
+1788374907.4712853 [INFO] [launch]: All log files can be found below /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-03-03-48-27-470243-jacob-dev-VMware-2
+1788374907.4713869 [INFO] [launch]: Default logging verbosity is set to INFO
+1788374907.6722660 [INFO] [gazebo-1]: process started with pid [32]
+1788374907.6744683 [INFO] [robot_state_publisher-2]: process started with pid [34]
+1788374907.6746163 [INFO] [parameter_bridge-3]: process started with pid [35]
+1788374907.7628565 [ERROR] [gazebo-1]: process has died [pid 32, exit code 255, cmd 'ruby /opt/ros/jazzy/opt/gz_tools_vendor/bin/gz sim -r -s /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/install/amr_simulation_assets/share/amr_simulation_assets/worlds/empty/empty.sdf --force-version 8'].
+1788374907.7630432 [INFO] [launch]: process[gazebo-1] was required: shutting down launched system
+1788374907.7635655 [INFO] [parameter_bridge-3]: sending signal 'SIGINT' to process[parameter_bridge-3]
+1788374907.7641044 [INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+1788374907.8290014 [ERROR] [parameter_bridge-3]: process has died [pid 35, exit code 255, cmd '/opt/ros/jazzy/lib/ros_gz_bridge/parameter_bridge /clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock /scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan /imu@sensor_msgs/msg/Imu[gz.msgs.IMU /camera/image@sensor_msgs/msg/Image[gz.msgs.Image /camera/depth_image@sensor_msgs/msg/Image[gz.msgs.Image /camera/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked /camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo /odom@nav_msgs/msg/Odometry[gz.msgs.Odometry /gazebo_tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V /joint_states@sensor_msgs/msg/JointState[gz.msgs.Model /cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist --ros-args -r __node:=ros_gz_bridge -r /gazebo_tf:=/tf'].
+1788374907.8734691 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 34]

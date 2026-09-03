@@ -1,0 +1,13 @@
+# ROS 2 / colcon generated files
+build/
+install/
+log/
+
+# Local editor settings
+.vscode/
+
+# Secrets
+.env
+*.key
+*.pem
+*.secret

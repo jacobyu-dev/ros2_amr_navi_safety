@@ -1,0 +1,5 @@
+lidar_safety_node:
+  ros__parameters:
+    scan_topic: /scan
+    stop_distance_m: 0.7
+    front_angle_deg: 30.0

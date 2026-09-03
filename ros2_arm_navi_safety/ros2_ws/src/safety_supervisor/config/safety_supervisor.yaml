@@ -1,0 +1,17 @@
+safety_supervisor_node:
+  ros__parameters:
+    evaluation_rate_hz: 20.0
+    source_timeout_sec: 0.5
+    startup_timeout_sec: 5.0
+    required_sources:
+      - lidar_safety
+      - tf_monitor
+      - sensor_watchdog
+    source_topics:
+      - /safety/lidar/status
+      - /safety/tf/status
+      - /safety/watchdog/status
+    system_status_topic: /safety/status
+    enable_latency_measurement: false
+    enable_latency_csv: false
+    latency_output_path: safety_latency_results.csv

@@ -1,0 +1,10 @@
+sensor_watchdog_node:
+  ros__parameters:
+    scan_topic: /scan
+    tf_status_topic: /safety/tf/status
+    watchdog_status_topic: /safety/watchdog/status
+    lidar_timeout_ms: 500
+    tf_timeout_ms: 500
+    watchdog_check_period_ms: 100
+    startup_grace_period_ms: 2000
+    executor_threads: 4

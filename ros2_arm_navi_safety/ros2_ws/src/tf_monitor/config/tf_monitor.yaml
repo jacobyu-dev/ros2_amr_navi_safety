@@ -1,0 +1,10 @@
+tf_monitor_node:
+  ros__parameters:
+    parent_frame: base_link
+    child_frame: laser_frame
+    check_period_ms: 100
+    lookup_timeout_ms: 100
+    stale_threshold_ms: 500
+    allow_static_transform: true
+    output_prefix: /tf_monitor
+    safety_status_topic: /safety/tf/status
