@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.8)
+project(amr_simulation)
+find_package(ament_cmake REQUIRED)
+install(DIRECTORY launch config scenarios DESTINATION share/${PROJECT_NAME})
+install(FILES README.md DESTINATION share/${PROJECT_NAME})
+install(PROGRAMS scripts/scan_worker_check.py DESTINATION lib/${PROJECT_NAME} RENAME scan_worker_check)
+ament_package()

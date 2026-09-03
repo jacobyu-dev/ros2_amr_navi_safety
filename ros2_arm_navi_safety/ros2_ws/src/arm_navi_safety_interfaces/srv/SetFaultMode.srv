@@ -1,0 +1,13 @@
+# Fault modes consumed by the Phase 8 fake LiDAR.  The values are part of the
+# service contract so terminal users and automated tests can select a mode
+# without recompiling the publisher.
+uint8 NORMAL=0
+uint8 STOP_PUBLISH=1
+uint8 SLOW_PUBLISH=2
+uint8 INVALID_DATA=3
+uint8 STALE_TIMESTAMP=4
+
+uint8 mode
+---
+bool success
+string message

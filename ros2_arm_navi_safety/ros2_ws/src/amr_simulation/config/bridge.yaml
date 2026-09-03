@@ -1,0 +1,4 @@
+# Documented bridge contract. It is intentionally kept in the launch file so
+# topic direction is visible at the simulation boundary.
+# Gz -> ROS: /clock, /scan, /imu, /odom, /gazebo_tf, /joint_states
+# ROS -> Gz: /cmd_vel

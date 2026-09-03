@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>safety_test_tools</name>
+  <version>0.1.0</version>
+  <description>Phase 8 deterministic fake LiDAR and end-to-end safety fault-injection tests.</description>
+  <maintainer email="jacob-dev@example.com">jacob-dev</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>arm_navi_safety_interfaces</depend>
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>launch_testing_ament_cmake</test_depend>
+  <test_depend>lidar_safety</test_depend>
+  <test_depend>python3-pytest</test_depend>
+  <test_depend>safety_supervisor</test_depend>
+  <test_depend>sensor_watchdog</test_depend>
+  <test_depend>tf_monitor</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

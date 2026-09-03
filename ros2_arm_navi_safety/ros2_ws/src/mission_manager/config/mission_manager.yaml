@@ -1,0 +1,17 @@
+mission_manager_node:
+  ros__parameters:
+    safety_topic: /safety/status
+    mission_status_topic: /mission/status
+    goal_pose_topic: /mission/goal_pose
+    navigate_action_name: /navigate_to_pose
+    start_service: /mission/start
+    cancel_service: /mission/cancel
+    pause_service: /mission/pause
+    resume_service: /mission/resume
+    executor_threads: 4
+    require_safety_clear: true
+    goal_frame: map
+    mission_id: 1
+    mission_goal_xs: [1.0, 2.0]
+    mission_goal_ys: [0.0, 1.0]
+    mission_goal_yaws: [0.0, 1.57]
