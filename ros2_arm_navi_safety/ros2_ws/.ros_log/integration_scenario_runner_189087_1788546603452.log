@@ -1,0 +1,6 @@
+[INFO] [1788546604.126224307] [integration_scenario_runner]: Event-driven safety integration scenario runner started
+[INFO] [1788546606.576444794] [integration_scenario_runner]: [PASS] ROS / Gazebo initialized
+[INFO] [1788546606.576476253] [integration_scenario_runner]: Scenario state: INITIALIZING -> WAITING_FOR_NAVIGATION
+[INFO] [1788546606.626457655] [integration_scenario_runner]: [PASS] NavigateToPose accepted
+[INFO] [1788546606.626498698] [integration_scenario_runner]: Scenario state: WAITING_FOR_NAVIGATION -> NORMAL_NAVIGATION
+[INFO] [1788546631.341853309] [rclcpp]: signal_handler(SIGINT/SIGTERM)

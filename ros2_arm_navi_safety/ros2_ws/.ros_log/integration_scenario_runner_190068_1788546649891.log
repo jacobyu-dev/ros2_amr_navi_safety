@@ -1,0 +1,68 @@
+[INFO] [1788546649.963242685] [integration_scenario_runner]: Event-driven safety integration scenario runner started
+[INFO] [1788546654.764422768] [integration_scenario_runner]: [PASS] ROS / Gazebo initialized
+[INFO] [1788546654.764449893] [integration_scenario_runner]: Scenario state: INITIALIZING -> WAITING_FOR_NAVIGATION
+[INFO] [1788546654.813413543] [integration_scenario_runner]: [PASS] NavigateToPose accepted
+[INFO] [1788546654.813462377] [integration_scenario_runner]: Scenario state: WAITING_FOR_NAVIGATION -> NORMAL_NAVIGATION
+[INFO] [1788546654.913328330] [integration_scenario_runner]: [PASS] Normal navigation started
+[INFO] [1788546655.024036527] [integration_scenario_runner]: [PASS] Obstacle injected
+[INFO] [1788546655.024065527] [integration_scenario_runner]: Scenario state: NORMAL_NAVIGATION -> WAITING_FOR_OBSTACLE_STOP
+[INFO] [1788546655.263467971] [integration_scenario_runner]: [PASS] Obstacle detected
+[INFO] [1788546655.313246547] [integration_scenario_runner]: [PASS] Safety stop triggered
+[INFO] [1788546656.113399219] [integration_scenario_runner]: [PASS] Robot stopped for obstacle
+[INFO] [1788546656.113434345] [integration_scenario_runner]: Scenario state: WAITING_FOR_OBSTACLE_STOP -> WAITING_FOR_OBSTACLE_RECOVERY
+[INFO] [1788546656.144624933] [integration_scenario_runner]: [PASS] Obstacle removed
+[INFO] [1788546657.313319936] [integration_scenario_runner]: [PASS] Safety recovered after stable obstacle clearance
+[INFO] [1788546657.313347937] [integration_scenario_runner]: Scenario state: WAITING_FOR_OBSTACLE_RECOVERY -> WAITING_FOR_OBSTACLE_RESUME
+[INFO] [1788546657.463332572] [integration_scenario_runner]: [PASS] Navigation resumed after obstacle
+[INFO] [1788546657.463355447] [integration_scenario_runner]: Scenario state: WAITING_FOR_OBSTACLE_RESUME -> WAITING_FOR_SENSOR_STOP
+[INFO] [1788546657.463986582] [integration_scenario_runner]: [PASS] Sensor fault injected
+[INFO] [1788546661.063406547] [integration_scenario_runner]: [PASS] Safety sensor fault triggered
+[INFO] [1788546661.163319419] [integration_scenario_runner]: [PASS] Watchdog timeout detected
+[INFO] [1788546661.963514863] [integration_scenario_runner]: [PASS] Robot stopped for sensor fault
+[INFO] [1788546661.963543488] [integration_scenario_runner]: Scenario state: WAITING_FOR_SENSOR_STOP -> WAITING_FOR_SENSOR_RECOVERY
+[INFO] [1788546661.972560078] [integration_scenario_runner]: [PASS] Sensor restored
+[INFO] [1788546662.768848088] [integration_scenario_runner]: [PASS] Watchdog healthy after stable samples
+[INFO] [1788546662.768881922] [integration_scenario_runner]: [PASS] Safety recovered after sensor restore
+[INFO] [1788546662.768884964] [integration_scenario_runner]: Scenario state: WAITING_FOR_SENSOR_RECOVERY -> WAITING_FOR_SENSOR_RESUME
+[INFO] [1788546663.063303814] [integration_scenario_runner]: [PASS] Navigation resumed after sensor recovery
+[INFO] [1788546663.063339648] [integration_scenario_runner]: Scenario state: WAITING_FOR_SENSOR_RESUME -> FINAL_NAVIGATION
+[ERROR] [1788546753.063430275] [integration_scenario_runner]: step timeout in FINAL_NAVIGATION
+[INFO] [1788546753.063513859] [integration_scenario_runner]: Scenario state: FINAL_NAVIGATION -> FAILED
+[INFO] [1788546753.063553443] [integration_scenario_runner]: 
+================================================
+Safety System Integration Scenario
+================================================
+  [PASS] ROS / Gazebo initialized
+  [PASS] NavigateToPose accepted
+  [PASS] Normal navigation started
+  [PASS] Obstacle injected
+  [PASS] Obstacle detected
+  [PASS] Safety stop triggered
+  [PASS] Robot stopped for obstacle
+  [PASS] Obstacle removed
+  [PASS] Safety recovered after stable obstacle clearance
+  [PASS] Navigation resumed after obstacle
+  [PASS] Sensor fault injected
+  [PASS] Safety sensor fault triggered
+  [PASS] Watchdog timeout detected
+  [PASS] Robot stopped for sensor fault
+  [PASS] Sensor restored
+  [PASS] Watchdog healthy after stable samples
+  [PASS] Safety recovered after sensor restore
+  [PASS] Navigation resumed after sensor recovery
+  [FAIL] step timeout in FINAL_NAVIGATION
+
+Latency
+  Obstacle detection: 204.482 ms
+  Obstacle safety decision: 238.159 ms
+  Obstacle stop command: 243.912 ms
+  Obstacle stationary: 1089.361 ms
+  Obstacle recovery: 1168.693 ms
+  Watchdog timeout: 3652.914 ms
+  Sensor safety decision: 3549.482 ms
+  Sensor stop command: 3558.402 ms
+  Sensor recovery: 796.287 ms
+------------------------------------------------
+Result: FAIL
+------------------------------------------------
+[INFO] [1788546819.052438604] [rclcpp]: signal_handler(SIGINT/SIGTERM)

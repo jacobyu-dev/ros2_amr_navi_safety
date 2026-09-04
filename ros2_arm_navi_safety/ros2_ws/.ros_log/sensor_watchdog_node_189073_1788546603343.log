@@ -1,0 +1,225 @@
+[INFO] [1788546604.255888709] [sensor_watchdog_node]: Sensor watchdog started: LiDAR timeout=500 ms, TF monitor timeout=500 ms, startup grace=2000 ms
+[INFO] [1788546604.364588187] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546604.364615104] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546605.356626927] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39915 ms
+[INFO] [1788546605.755993876] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546605.955979919] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332440 ms
+[ERROR] [1788546605.956034711] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39930 ms
+[INFO] [1788546606.062357260] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546606.062393677] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546607.055972200] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39950 ms
+[INFO] [1788546607.155977624] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546607.256023257] [sensor_watchdog_node]: lidar watchdog timeout detected: 39933 ms
+[INFO] [1788546607.356836737] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546607.458120476] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194914 ms
+[ERROR] [1788546607.556005445] [sensor_watchdog_node]: lidar watchdog timeout detected: 39952 ms
+[INFO] [1788546607.556605331] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546607.658936672] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546607.755988001] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154951 ms
+[INFO] [1788546607.859722284] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546607.960596890] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292423 ms
+[ERROR] [1788546608.061028193] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332359 ms
+[INFO] [1788546608.156067937] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546608.156103688] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546608.356324901] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487301 ms
+[ERROR] [1788546608.356377943] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154946 ms
+[INFO] [1788546608.456020729] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546608.456057396] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546608.556686408] [sensor_watchdog_node]: lidar watchdog timeout detected: 1154936 ms
+[ERROR] [1788546608.556740117] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154936 ms
+[INFO] [1788546608.655997396] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546608.756092981] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546609.055980559] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292403 ms
+[INFO] [1788546609.256184966] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546609.355979747] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332381 ms
+[INFO] [1788546609.455997574] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546609.657288542] [sensor_watchdog_node]: lidar watchdog timeout detected: 1292394 ms
+[ERROR] [1788546609.657368460] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292388 ms
+[INFO] [1788546609.756006012] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546609.756025554] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546610.058534825] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39966 ms
+[INFO] [1788546610.157082618] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546610.263405467] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292393 ms
+[ERROR] [1788546610.355990738] [sensor_watchdog_node]: lidar watchdog timeout detected: 39958 ms
+[INFO] [1788546610.356068114] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546610.463901907] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546610.463927615] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292397 ms
+[ERROR] [1788546610.556044212] [sensor_watchdog_node]: lidar watchdog timeout detected: 39952 ms
+[INFO] [1788546610.762469173] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546610.762499799] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546611.855990264] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154966 ms
+[ERROR] [1788546611.956003744] [sensor_watchdog_node]: lidar watchdog timeout detected: 1292424 ms
+[INFO] [1788546611.956169038] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546612.055972885] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546612.055999177] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292443 ms
+[INFO] [1788546612.156118652] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546612.358553056] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332365 ms
+[ERROR] [1788546612.556121417] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332359 ms
+[INFO] [1788546612.656207765] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546612.656236766] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546612.756614453] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487292 ms
+[ERROR] [1788546612.756670288] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154945 ms
+[INFO] [1788546612.957654958] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546612.957701917] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546613.055995273] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154943 ms
+[INFO] [1788546613.155983738] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546613.456135929] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332349 ms
+[INFO] [1788546613.556151228] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546613.656094859] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39890 ms
+[INFO] [1788546614.055983132] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546614.456045051] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332366 ms
+[ERROR] [1788546614.456101885] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39859 ms
+[INFO] [1788546614.556576977] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546614.556618561] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546614.756014468] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292490 ms
+[ERROR] [1788546614.955978801] [sensor_watchdog_node]: lidar watchdog timeout detected: 1194856 ms
+[INFO] [1788546614.956034719] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546615.055985090] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546615.056012465] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332373 ms
+[INFO] [1788546615.157657154] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546615.558189012] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332360 ms
+[ERROR] [1788546615.558221679] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332358 ms
+[INFO] [1788546615.656278889] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546615.656309431] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546615.957909481] [sensor_watchdog_node]: lidar watchdog timeout detected: 39876 ms
+[ERROR] [1788546615.957941106] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332356 ms
+[INFO] [1788546616.056055730] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546616.157840498] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546616.656019149] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487366 ms
+[ERROR] [1788546616.656080067] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154967 ms
+[INFO] [1788546616.855975830] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546616.856008081] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546616.955973317] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194842 ms
+[INFO] [1788546617.055977758] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546617.356469790] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332405 ms
+[ERROR] [1788546617.356517999] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332377 ms
+[INFO] [1788546617.456009178] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546617.456052596] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546617.856069640] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39911 ms
+[INFO] [1788546617.956013244] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546618.156141529] [sensor_watchdog_node]: lidar watchdog timeout detected: 1154923 ms
+[ERROR] [1788546618.156186697] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487259 ms
+[INFO] [1788546618.256115752] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546618.256156502] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546618.461137785] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487263 ms
+[INFO] [1788546618.557882035] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546618.557917202] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194861 ms
+[INFO] [1788546618.656079435] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546618.755964365] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292407 ms
+[INFO] [1788546618.956074063] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546619.056015698] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487258 ms
+[INFO] [1788546619.160883998] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546619.464309414] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39885 ms
+[ERROR] [1788546619.556005238] [sensor_watchdog_node]: lidar watchdog timeout detected: 1154951 ms
+[INFO] [1788546619.657509689] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546619.657536772] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546619.756400344] [sensor_watchdog_node]: lidar watchdog timeout detected: 1154902 ms
+[ERROR] [1788546619.756452762] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194822 ms
+[INFO] [1788546619.856402311] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546619.856434478] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546619.956003604] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39916 ms
+[ERROR] [1788546620.057869682] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332367 ms
+[INFO] [1788546620.158104062] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546620.356074488] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546620.456127657] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 39931 ms
+[INFO] [1788546620.557365846] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546620.657069884] [sensor_watchdog_node]: lidar watchdog timeout detected: 1194795 ms
+[INFO] [1788546620.756072369] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546620.855981452] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332363 ms
+[ERROR] [1788546620.856054536] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332362 ms
+[INFO] [1788546620.956090955] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546620.956122955] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546621.155988154] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332328 ms
+[INFO] [1788546621.255958898] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546621.356152313] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487192 ms
+[ERROR] [1788546621.356219147] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194822 ms
+[INFO] [1788546621.456013472] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546621.456044555] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546621.556332847] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487213 ms
+[ERROR] [1788546621.556407765] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487212 ms
+[INFO] [1788546621.657476611] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546621.657546320] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546621.756223334] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154933 ms
+[ERROR] [1788546621.857771105] [sensor_watchdog_node]: lidar watchdog timeout detected: 39922 ms
+[INFO] [1788546621.857823148] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546621.955982778] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487210 ms
+[INFO] [1788546622.061175274] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546622.061216733] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546622.256003120] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292361 ms
+[ERROR] [1788546622.356546784] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487190 ms
+[INFO] [1788546622.460449505] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546622.460507006] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546622.659701843] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487200 ms
+[ERROR] [1788546622.755988685] [sensor_watchdog_node]: lidar watchdog timeout detected: 39902 ms
+[INFO] [1788546622.856555683] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546622.955976744] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332263 ms
+[INFO] [1788546622.956011411] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546623.056010729] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546623.356051924] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487213 ms
+[ERROR] [1788546623.456313660] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332270 ms
+[INFO] [1788546623.556516020] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546623.655984367] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546624.055983997] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487199 ms
+[ERROR] [1788546624.056053165] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487199 ms
+[INFO] [1788546624.155996472] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546624.156038640] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546624.656809568] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292363 ms
+[INFO] [1788546624.756519413] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546624.855981546] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292365 ms
+[ERROR] [1788546624.955981895] [sensor_watchdog_node]: lidar watchdog timeout detected: 39917 ms
+[INFO] [1788546625.156012210] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546625.257980920] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546625.356945037] [sensor_watchdog_node]: lidar watchdog timeout detected: 1292374 ms
+[ERROR] [1788546625.357015580] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292367 ms
+[INFO] [1788546625.455985156] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546625.556080418] [sensor_watchdog_node]: lidar watchdog timeout detected: 39915 ms
+[INFO] [1788546625.655988759] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546625.656022635] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546625.856017905] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1154983 ms
+[INFO] [1788546625.956319086] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546626.055980337] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194880 ms
+[INFO] [1788546626.155968798] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546626.356008889] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332235 ms
+[INFO] [1788546626.456167062] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546626.567711591] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487224 ms
+[INFO] [1788546626.655992607] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546626.956715671] [sensor_watchdog_node]: lidar watchdog timeout detected: 1194888 ms
+[ERROR] [1788546626.956772922] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1155001 ms
+[INFO] [1788546627.155963405] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546627.256109737] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546627.455990021] [sensor_watchdog_node]: lidar watchdog timeout detected: 1194903 ms
+[ERROR] [1788546627.456023354] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1155021 ms
+[INFO] [1788546627.555961434] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546627.656418730] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546628.155971238] [sensor_watchdog_node]: lidar watchdog timeout detected: 1155025 ms
+[ERROR] [1788546628.156025489] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487262 ms
+[INFO] [1788546628.355978510] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546628.355999511] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546628.956306166] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194894 ms
+[INFO] [1788546629.056481239] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546629.155970381] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487294 ms
+[ERROR] [1788546629.156011923] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1155022 ms
+[INFO] [1788546629.256823504] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546629.256854088] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546629.358671935] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332276 ms
+[ERROR] [1788546629.358743769] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1332276 ms
+[INFO] [1788546629.456003875] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546629.556048109] [sensor_watchdog_node]: lidar watchdog timeout detected: 39901 ms
+[INFO] [1788546629.556107860] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546629.656023801] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546629.775919405] [sensor_watchdog_node]: lidar watchdog timeout detected: 1292404 ms
+[ERROR] [1788546629.775957281] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1292409 ms
+[INFO] [1788546629.856559778] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546629.955991544] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546630.556135372] [sensor_watchdog_node]: lidar watchdog timeout detected: 2487316 ms
+[ERROR] [1788546630.556206623] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1155033 ms
+[INFO] [1788546630.657726584] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546630.657756542] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546630.755970990] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1155016 ms
+[ERROR] [1788546630.955972945] [sensor_watchdog_node]: lidar watchdog timeout detected: 1332276 ms
+[INFO] [1788546630.956013321] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[ERROR] [1788546631.055988169] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 1194899 ms
+[INFO] [1788546631.156226894] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546631.256046362] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546631.256069779] [sensor_watchdog_node]: tf_monitor watchdog timeout detected: 2487295 ms
+[INFO] [1788546631.322364532] [rclcpp]: signal_handler(SIGINT/SIGTERM)

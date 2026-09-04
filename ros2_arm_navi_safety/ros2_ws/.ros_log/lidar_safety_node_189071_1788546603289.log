@@ -1,0 +1,4 @@
+[INFO] [1788546603.872160382] [lidar_safety_node]: LiDAR safety node started
+[INFO] [1788546603.872219175] [lidar_safety_node]: Safety configuration: stop_distance=0.70 m, front_angle=30.0 deg
+[INFO] [1788546604.568757737] [lidar_safety_node]: Obstacle cleared: min_distance=inf m
+[INFO] [1788546631.330626875] [rclcpp]: signal_handler(SIGINT/SIGTERM)

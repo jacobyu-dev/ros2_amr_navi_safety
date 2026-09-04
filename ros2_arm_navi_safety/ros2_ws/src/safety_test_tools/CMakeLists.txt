@@ -23,7 +23,11 @@ add_executable(fake_lidar_node src/fake_lidar_node.cpp)
 target_link_libraries(fake_lidar_node fake_lidar)
 ament_target_dependencies(fake_lidar_node arm_navi_safety_interfaces rclcpp sensor_msgs)
 
-install(TARGETS fake_lidar fake_lidar_node
+add_executable(scan_fault_injector src/scan_fault_injector.cpp)
+target_link_libraries(scan_fault_injector fake_lidar)
+ament_target_dependencies(scan_fault_injector arm_navi_safety_interfaces rclcpp sensor_msgs)
+
+install(TARGETS fake_lidar fake_lidar_node scan_fault_injector
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME})

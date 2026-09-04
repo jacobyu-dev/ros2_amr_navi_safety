@@ -1,0 +1,2 @@
+[WARN] [1788546649.966845323] [integration_test_navigate_to_pose_server]: Using deterministic test NavigateToPose backend (not Nav2 production planning)
+[INFO] [1788546819.051438262] [rclcpp]: signal_handler(SIGINT/SIGTERM)

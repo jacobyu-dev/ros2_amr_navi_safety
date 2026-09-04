@@ -29,6 +29,14 @@ BASE_SPAWN_POSES = {
     'warehouse': ('0.0', '0.0'),
     'warehouse_detailed': ('0.0', '0.0'),
 }
+BASE_GZ_WORLD_NAMES = {
+    'empty': 'amr_empty',
+    'maze': 'maze_world',
+    'corridor': 'corridor',
+    'bookstore': 'amr_bookstore',
+    'warehouse': 'amr_warehouse',
+    'warehouse_detailed': 'amr_warehouse_detailed',
+}
 
 VARIANT_COUNTS = (0, 3, 10)
 WORLD_FILES = dict(BASE_WORLD_FILES)
@@ -126,6 +134,9 @@ def _launch(context):
     world_name = LaunchConfiguration('world').perform(context)
     if world_name not in WORLD_FILES:
         raise RuntimeError('world must be one of: ' + ', '.join(WORLD_FILES))
+    gui_render_engine = LaunchConfiguration('gui_render_engine').perform(context)
+    if gui_render_engine not in ('ogre', 'ogre2'):
+        raise RuntimeError('gui_render_engine must be either "ogre" or "ogre2"')
     assets = get_package_share_directory('amr_simulation_assets')
     mir_description = get_package_share_directory('mir_description')
     ros_gz_sim = get_package_share_directory('ros_gz_sim')
@@ -135,6 +146,7 @@ def _launch(context):
     dynamic_obstacle = LaunchConfiguration('dynamic_obstacle').perform(context).lower() == 'true'
     worker_count = FIXED_OBSTACLE_COUNTS.get(world_name, 1 if dynamic_obstacle else 0)
     base_world_name = WORLD_BASE_NAMES[world_name]
+    gz_world_name = BASE_GZ_WORLD_NAMES[base_world_name]
     worker_spawns = WORKER_SPAWNS_BY_WORLD[base_world_name]
     x = LaunchConfiguration('x').perform(context) or SPAWN_POSES[world_name][0]
     y = LaunchConfiguration('y').perform(context) or SPAWN_POSES[world_name][1]
@@ -150,6 +162,7 @@ def _launch(context):
     # transport partition, a new GUI can attach to an older world that was
     # left running after an interrupted launch.
     partition = f'amr_simulation_{os.getpid()}'
+    gz_args = ('-r -s ' if headless else f'-r --render-engine-gui {gui_render_engine} ') + world_file
     actions = [
         SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', resource_path),
         SetEnvironmentVariable('GZ_PARTITION', partition),
@@ -157,7 +170,7 @@ def _launch(context):
         LogInfo(msg=f'Gazebo transport partition: {partition}'),
         LogInfo(msg=f'Dynamic obstacle count: {worker_count}'),
         IncludeLaunchDescription(PythonLaunchDescriptionSource(os.path.join(ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-            launch_arguments={'gz_args': ('-r -s ' if headless else '-r ') + world_file,
+            launch_arguments={'gz_args': gz_args,
                               'on_exit_shutdown': 'true'}.items()),
         Node(package='robot_state_publisher', executable='robot_state_publisher', name='robot_state_publisher',
              parameters=[{'use_sim_time': True, 'robot_description': robot_description}], output='screen'),
@@ -173,8 +186,9 @@ def _launch(context):
                  '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
                  '/gazebo_tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
                  '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model',
-                 '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist'],
-             remappings=[('/gazebo_tf', '/tf')]),
+                 '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
+                 f'/world/{gz_world_name}/set_pose@ros_gz_interfaces/srv/SetEntityPose'],
+             remappings=[('/gazebo_tf', '/tf'), ('/scan', LaunchConfiguration('scan_topic'))]),
         TimerAction(period=2.0, actions=[Node(package='ros_gz_sim', executable='create', name='spawn_mir', output='screen',
              arguments=['-name', 'mir', '-topic', '/robot_description', '-x', x, '-y', y, '-z', '0.20'])]),
     ]
@@ -194,6 +208,10 @@ def generate_launch_description():
         DeclareLaunchArgument('dynamic_obstacle', default_value='false',
             description='Legacy switch: spawn one worker for world names without a fixed _0/_3/_10 count'),
         DeclareLaunchArgument('headless', default_value='false'),
+        DeclareLaunchArgument('gui_render_engine', default_value='ogre',
+            description='Gazebo GUI renderer: ogre is the VM-compatible default; ogre2 is optional'),
+        DeclareLaunchArgument('scan_topic', default_value='/scan',
+            description='ROS output topic for the Gazebo LiDAR bridge'),
         DeclareLaunchArgument('x', default_value='', description='Override world-specific robot x spawn pose'),
         DeclareLaunchArgument('y', default_value='', description='Override world-specific robot y spawn pose'),
         OpaqueFunction(function=_launch),

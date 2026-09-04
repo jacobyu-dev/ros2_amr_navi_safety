@@ -1,0 +1,10 @@
+[INFO] [1788546650.061429013] [safety_supervisor_node]: Safety supervisor started: 3 required sources, 20.0 Hz evaluation
+[ERROR] [1788546654.711648811] [safety_supervisor_node]: Safety state transition: INIT -> FAULT (sensor_watchdog reported invalid safety data: lidar=WAITING; tf_monitor=HEALTHY)
+[INFO] [1788546654.761547183] [safety_supervisor_node]: Safety state transition: FAULT -> SAFE (all required safety sources are healthy)
+[WARN] [1788546655.262192786] [safety_supervisor_node]: Safety state transition: SAFE -> STOP (lidar_safety: obstacle inside stop distance)
+[INFO] [1788546656.365134166] [safety_supervisor_node]: Safety state transition: STOP -> SAFE (all required safety sources are healthy)
+[ERROR] [1788546661.013465945] [safety_supervisor_node]: Safety state transition: SAFE -> FAULT (lidar_safety safety status timeout)
+[INFO] [1788546661.161540268] [safety_supervisor_node]: [Latency][event=1][lidar_timeout] Detection: 3653.312 ms Dispatch: 17.724 ms Decision: 26.909 ms Total: 3697.946 ms State: FAULT
+[INFO] [1788546661.161600352] [safety_supervisor_node]: [Latency Summary][lidar_timeout] samples=1 total mean=3697.946 ms median=3697.946 ms p95=3697.946 ms p99=3697.946 ms max=3697.946 ms
+[INFO] [1788546662.361695224] [safety_supervisor_node]: Safety state transition: FAULT -> SAFE (all required safety sources are healthy)
+[INFO] [1788546819.060448541] [rclcpp]: signal_handler(SIGINT/SIGTERM)

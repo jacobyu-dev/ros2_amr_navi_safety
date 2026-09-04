@@ -45,6 +45,13 @@ LidarSafetyResult LidarSafetyCore::evaluate(
     }
 
     const float range_m = scan.ranges_m[index];
+    // LaserScan producers (including Gazebo Harmonic) conventionally use +inf
+    // for a valid ray with no return inside range_max. It proves the ray is
+    // clear, while NaN and -inf still mean unusable data.
+    if (std::isinf(range_m) && range_m > 0.0F) {
+      result.has_valid_measurement = true;
+      continue;
+    }
     if (!std::isfinite(range_m) || range_m < scan.range_min_m || range_m > scan.range_max_m) {
       continue;
     }

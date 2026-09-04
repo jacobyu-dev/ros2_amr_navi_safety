@@ -1,0 +1,4 @@
+[INFO] [1788546651.871998195] [spawn_mir]: Requesting list of world names.
+[INFO] [1788546652.267318083] [spawn_mir]: Waiting messages on topic [/robot_description].
+[INFO] [1788546653.268309666] [spawn_mir]: Waiting messages on topic [/robot_description].
+[INFO] [1788546653.689087780] [spawn_mir]: Entity creation successful.

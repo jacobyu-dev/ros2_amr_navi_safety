@@ -1,0 +1,3 @@
+[INFO] [1788546650.034160849] [tf_monitor_node]: TF monitor started: base_link -> front_laser_link, period=100 ms, stale=500 ms
+[INFO] [1788546650.342242491] [tf_monitor_node]: TF base_link -> front_laser_link OK
+[INFO] [1788546819.084117519] [rclcpp]: signal_handler(SIGINT/SIGTERM)
