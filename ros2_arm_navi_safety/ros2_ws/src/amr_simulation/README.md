@@ -27,6 +27,15 @@ worker. `headless:=true` runs the Gazebo server without the GUI. The launch
 sets `GZ_SIM_RESOURCE_PATH` itself and starts only Gazebo, bridge, robot-state
 publisher, and entity spawners.
 
+The Gazebo GUI defaults to the VM-compatible `ogre` renderer. Use
+`gui_render_engine:=ogre2` only when the host GPU and graphics-memory budget
+support Ogre 2. Headless runs do not start either GUI renderer.
+
+`scan_topic:=/scan/raw` remaps the ROS side of the Gazebo LiDAR bridge. Phase
+15 uses it to place a fault-injection relay before the public `/scan`. The
+launch also bridges the selected world's Gazebo `SetEntityPose` service for
+deterministic obstacle integration tests.
+
 Fixed-count examples:
 
 ```bash
