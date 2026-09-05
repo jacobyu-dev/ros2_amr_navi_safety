@@ -91,6 +91,7 @@ protocol.
 | --- | --- | --- |
 | Subscribe | `/safety/status` | `arm_navi_safety_interfaces/msg/SafetyStatus` |
 | Publish | `/mission/status` | `arm_navi_safety_interfaces/msg/MissionStatus` |
+| Publish | `/mission/active_goal` | Exact `geometry_msgs/msg/PoseStamped` dispatched to NavigateToPose (transient local) |
 | Service | `/mission/start`, `/mission/cancel`, `/mission/pause`, `/mission/resume` | `std_srvs/srv/Trigger` |
 | Action client | `/navigate_to_pose` | `nav2_msgs/action/NavigateToPose` |
 

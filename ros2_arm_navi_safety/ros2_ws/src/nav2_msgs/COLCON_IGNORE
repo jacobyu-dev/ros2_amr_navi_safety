@@ -1,0 +1,1 @@
+This development-only compatibility package must not shadow the complete system nav2_msgs package.

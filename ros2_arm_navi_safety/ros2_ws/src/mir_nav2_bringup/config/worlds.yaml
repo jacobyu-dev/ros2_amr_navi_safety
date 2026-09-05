@@ -1,0 +1,25 @@
+worlds:
+  empty:
+    map: empty.yaml
+    spawn: [0.0, 0.0, 0.0]
+    example_goal: [4.0, 0.0, 0.0]
+  maze:
+    map: maze.yaml
+    spawn: [-5.0, -6.0, 0.0]
+    example_goal: [-5.0, 0.0, 1.5708]
+  corridor:
+    map: corridor.yaml
+    spawn: [0.0, 0.0, 0.0]
+    example_goal: [7.0, 0.0, 0.0]
+  bookstore:
+    map: bookstore.yaml
+    spawn: [12.0, -9.0, 0.0]
+    example_goal: [12.0, 8.0, 1.5708]
+  warehouse:
+    map: warehouse.yaml
+    spawn: [0.0, 0.0, 0.0]
+    example_goal: [7.5, 5.0, 0.0]
+  warehouse_detailed:
+    map: warehouse_detailed.yaml
+    spawn: [0.0, 0.0, 0.0]
+    example_goal: [12.0, 7.5, 0.0]

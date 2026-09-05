@@ -82,6 +82,17 @@ TEST(LidarSafetyCoreTest, HandlesNoValidPoint)
   EXPECT_TRUE(std::isinf(result.min_distance_m));
 }
 
+TEST(LidarSafetyCoreTest, PositiveInfinityMeansClearRay)
+{
+  const float infinity = std::numeric_limits<float>::infinity();
+  const auto result = LidarSafetyCore{}.evaluate(
+    make_scan({infinity, infinity, infinity, infinity, infinity, infinity, infinity}),
+    default_config());
+  EXPECT_FALSE(result.obstacle_detected);
+  EXPECT_TRUE(result.has_valid_measurement);
+  EXPECT_TRUE(std::isinf(result.min_distance_m));
+}
+
 TEST(LidarSafetyCoreTest, TreatsStopDistanceAsObstacle)
 {
   const auto result = LidarSafetyCore{}.evaluate(make_scan({5.0F, 5.0F, 2.0F, 0.7F, 3.0F, 5.0F, 5.0F}), default_config());
