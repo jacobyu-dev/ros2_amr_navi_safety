@@ -1,0 +1,132 @@
+[INFO] [1788546604.576600046] [mission_manager_node]: Mission manager started: action=/navigate_to_pose, safety=/safety/status, explicit resume policy=enabled
+[INFO] [1788546604.578372620] [mission_manager_node]: External navigation goals: /mission/goal_pose
+[INFO] [1788546604.581987936] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546604.719382603] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546604.973595772] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546605.319656965] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546605.711232481] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546606.499334026] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546606.577965863] [mission_manager_node]: Mission state: IDLE -> RUNNING
+[INFO] [1788546606.577994155] [mission_manager_node]: Navigation state: IDLE -> WAITING_FOR_GOAL
+[INFO] [1788546606.581082419] [mission_manager_node]: Mission 1 started with 1 waypoints
+[INFO] [1788546606.581114212] [mission_manager_node]: Navigation state: WAITING_FOR_GOAL -> NAVIGATING
+[INFO] [1788546606.581481218] [mission_manager_node]: Sending NavigateToPose waypoint 1/1
+[INFO] [1788546606.609847064] [mission_manager_node]: Navigation goal accepted
+[ERROR] [1788546606.609907065] [mission_manager_node.rclcpp_action]: unknown goal response, ignoring...
+[ERROR] [1788546606.609951857] [mission_manager_node.rclcpp_action]: unknown goal response, ignoring...
+[ERROR] [1788546606.609962983] [mission_manager_node.rclcpp_action]: unknown goal response, ignoring...
+[WARN] [1788546606.623305224] [mission_manager_node]: Safety stop received: lidar_safety safety status timeout
+[INFO] [1788546606.623324266] [mission_manager_node]: [SafetyLatency] Safety-to-mission: 6.983 ms
+[INFO] [1788546606.623327557] [mission_manager_node]: Mission state: RUNNING -> PAUSED
+[INFO] [1788546606.623329766] [mission_manager_node]: Navigation state: NAVIGATING -> PAUSED
+[INFO] [1788546606.623360808] [mission_manager_node]: Canceling active navigation goal
+[ERROR] [1788546606.623789107] [mission_manager_node.rclcpp_action]: unknown cancel response, ignoring...
+[ERROR] [1788546606.628568402] [mission_manager_node.rclcpp_action]: unknown cancel response, ignoring...
+[ERROR] [1788546606.637210600] [mission_manager_node.rclcpp_action]: unknown cancel response, ignoring...
+[INFO] [1788546606.654740625] [mission_manager_node]: Navigation canceled
+[ERROR] [1788546606.654777209] [mission_manager_node.rclcpp_action]: unknown result response, ignoring...
+[ERROR] [1788546606.666325334] [mission_manager_node.rclcpp_action]: unknown result response, ignoring...
+[ERROR] [1788546606.695130646] [mission_manager_node.rclcpp_action]: unknown result response, ignoring...
+[INFO] [1788546606.871537998] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546606.881292716] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546606.921769655] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546606.972841703] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546606.983174056] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.118753205] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.317840661] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.380208658] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.441691681] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.491589828] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.529580845] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.580484719] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.680156679] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.880080442] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546607.927144622] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546608.218688601] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546608.385151501] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546608.686132644] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546608.976957230] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546609.681657602] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546609.886410881] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546609.981683623] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546610.022253888] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546610.223272212] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546611.377041365] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546611.566939145] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546611.680783495] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546612.417079172] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546612.674243375] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546612.966499739] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546613.120923872] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546613.237684923] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546613.279880415] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546613.420003752] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546613.479597216] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546613.635138241] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546613.679432227] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546614.373598816] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546614.573502607] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546614.879800093] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546615.182402419] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546615.271411970] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546615.284592784] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546615.517294382] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546615.530495946] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546615.780121631] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546616.918177910] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.021861293] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.030946825] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.174853565] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.216966585] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.680025512] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.784598237] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.971655765] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546617.979557527] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546618.479466809] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546618.579535866] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546618.922102602] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546618.990908205] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546619.173354545] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546619.366953702] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546619.596401056] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546619.880210969] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546619.922228024] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546620.023688389] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546620.580374406] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546620.779453018] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546620.971730014] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546622.218235771] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546622.680136273] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546622.917662094] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546623.178458215] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546623.196918693] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546623.281406663] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546623.787895929] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546623.879635646] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546624.379890032] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546624.516731627] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546625.017330177] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546625.274188858] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546625.318104303] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546625.527989030] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546625.716854905] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546625.729757121] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546626.124504356] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546626.280220540] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546626.481926867] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546627.222181881] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546627.481843701] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546627.522928467] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546627.983887677] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546628.147286427] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546628.319943997] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546628.381578059] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546628.671890995] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546629.229885101] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546629.323817485] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546629.482203974] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546629.618514890] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546629.919510233] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546630.321652767] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546630.622778884] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546631.326121510] [rclcpp]: signal_handler(SIGINT/SIGTERM)

@@ -1,0 +1,8 @@
+[INFO] [1788546603.975602689] [safety_velocity_gate]: Fail-safe velocity gate: /navigation/cmd_vel -> /cmd_vel, safety=/safety/status
+[INFO] [1788546606.617794791] [safety_velocity_gate]: Velocity gate OPEN
+[INFO] [1788546606.642028437] [safety_velocity_gate]: Velocity gate CLOSED (publishing zero)
+[INFO] [1788546606.880031985] [safety_velocity_gate]: Velocity gate OPEN
+[INFO] [1788546606.897022792] [safety_velocity_gate]: Velocity gate CLOSED (publishing zero)
+[INFO] [1788546606.937740902] [safety_velocity_gate]: Velocity gate OPEN
+[INFO] [1788546606.958086520] [safety_velocity_gate]: Velocity gate CLOSED (publishing zero)
+[INFO] [1788546631.329983740] [rclcpp]: signal_handler(SIGINT/SIGTERM)

@@ -10,6 +10,7 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 
 find_package(ament_cmake REQUIRED)
 find_package(arm_navi_safety_interfaces REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 
 add_library(safety_state_machine src/safety_state_machine.cpp)
@@ -33,7 +34,11 @@ add_executable(safety_supervisor_node src/safety_supervisor_main.cpp)
 target_link_libraries(safety_supervisor_node safety_supervisor_node_lib)
 ament_target_dependencies(safety_supervisor_node rclcpp)
 
+add_executable(safety_velocity_gate src/safety_velocity_gate.cpp)
+ament_target_dependencies(safety_velocity_gate arm_navi_safety_interfaces geometry_msgs rclcpp)
+
 install(TARGETS safety_state_machine safety_latency_monitor safety_supervisor_node_lib safety_supervisor_node
+  safety_velocity_gate
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME})
@@ -61,9 +66,10 @@ if(BUILD_TESTING)
   find_package(launch_testing_ament_cmake REQUIRED)
   add_launch_test(test/test_safety_supervisor_node.py TIMEOUT 90)
   add_launch_test(test/test_safety_pipeline.py TIMEOUT 90)
+  add_launch_test(test/test_safety_velocity_gate.py TIMEOUT 30)
 endif()
 
 ament_export_include_directories(include)
 ament_export_libraries(safety_state_machine safety_latency_monitor safety_supervisor_node_lib)
-ament_export_dependencies(arm_navi_safety_interfaces rclcpp)
+ament_export_dependencies(arm_navi_safety_interfaces geometry_msgs rclcpp)
 ament_package()

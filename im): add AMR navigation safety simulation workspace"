@@ -1,0 +1,32 @@
+ ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-05-03-21-55-452556-jacob-dev-VMware-19/launch.log                 |     0
+ ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-05-03-21-56-010759-jacob-dev-VMware-2/launch.log                  |     0
+ ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-05-03-30-02-725030-jacob-dev-VMware-188998/launch.log             |    49 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-05-03-30-49-226537-jacob-dev-VMware-189988/launch.log             |    45 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-05-03-57-08-460202-jacob-dev-VMware-22/launch.log                 |     0
+ ros2_arm_navi_safety/ros2_ws/.ros_log/create_189359_1788546605251.log                                           |     3 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/create_189410_1788546606271.log                                           |     2 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/create_190386_1788546651803.log                                           |     4 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/create_190456_1788546652799.log                                           |     2 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/integration_scenario_runner_189087_1788546603452.log                      |     6 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/integration_scenario_runner_190068_1788546649891.log                      |    68 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/integration_test_navigator_189078_1788546603371.log                       |     2 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/integration_test_navigator_190064_1788546649875.log                       |     2 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/latest                                                                    |     2 [32m+[m[31m-[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/lidar_safety_node_189071_1788546603289.log                                |     4 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/lidar_safety_node_190057_1788546649947.log                                |     6 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/mission_manager_node_189086_1788546603369.log                             |   132 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/mission_manager_node_190065_1788546649937.log                             |    40 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/parameter_bridge_189067_1788546603409.log                                 |    14 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/parameter_bridge_190055_1788546649862.log                                 |    14 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/robot_state_publisher_189065_1788546603243.log                            |   914 [32m++[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/robot_state_publisher_190054_1788546649856.log                            |     2 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/safety_supervisor_node_189074_1788546603308.log                           |    95 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/safety_supervisor_node_190062_1788546649947.log                           |    10 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/safety_velocity_gate_189077_1788546603313.log                             |     8 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/safety_velocity_gate_190063_1788546649892.log                             |     8 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/scan_fault_injector_189068_1788546603269.log                              |     2 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/scan_fault_injector_190056_1788546649816.log                              |     4 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/sensor_watchdog_node_189073_1788546603343.log                             |   225 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/sensor_watchdog_node_190061_1788546649921.log                             |     8 [32m+[m
+ ros2_arm_navi_safety/ros2_ws/.ros_log/tf_monitor_node_189072_1788546603319.log                                  | 38760 [32m+++++++++++++++++++++++++++++++++++++++++++++++++++++++[m
+ 

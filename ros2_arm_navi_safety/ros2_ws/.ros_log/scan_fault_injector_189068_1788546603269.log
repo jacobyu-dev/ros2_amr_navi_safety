@@ -1,0 +1,2 @@
+[INFO] [1788546604.257544406] [scan_fault_injector]: Gazebo scan fault relay: /scan/raw -> /scan, service=/fake_lidar/set_fault_mode
+[INFO] [1788546631.331548307] [rclcpp]: signal_handler(SIGINT/SIGTERM)

@@ -1,0 +1,40 @@
+[INFO] [1788546650.056329436] [mission_manager_node]: Mission manager started: action=/navigate_to_pose, safety=/safety/status, explicit resume policy=enabled
+[INFO] [1788546650.056522314] [mission_manager_node]: External navigation goals: /mission/goal_pose
+[INFO] [1788546654.761914105] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546654.764911150] [mission_manager_node]: Mission state: IDLE -> RUNNING
+[INFO] [1788546654.764925775] [mission_manager_node]: Navigation state: IDLE -> WAITING_FOR_GOAL
+[INFO] [1788546654.764947359] [mission_manager_node]: Mission 1 started with 1 waypoints
+[INFO] [1788546654.764952401] [mission_manager_node]: Navigation state: WAITING_FOR_GOAL -> NAVIGATING
+[INFO] [1788546654.764957234] [mission_manager_node]: Sending NavigateToPose waypoint 1/1
+[INFO] [1788546654.770047477] [mission_manager_node]: Navigation goal accepted
+[WARN] [1788546655.262413581] [mission_manager_node]: Safety stop received: lidar_safety: obstacle inside stop distance
+[INFO] [1788546655.262440914] [mission_manager_node]: [SafetyLatency] Safety-to-mission: 0.249 ms
+[INFO] [1788546655.262446706] [mission_manager_node]: Mission state: RUNNING -> PAUSED
+[INFO] [1788546655.262449790] [mission_manager_node]: Navigation state: NAVIGATING -> PAUSED
+[INFO] [1788546655.262480915] [mission_manager_node]: Canceling active navigation goal
+[INFO] [1788546655.267032441] [mission_manager_node]: Navigation canceled
+[INFO] [1788546656.365436795] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546657.315381884] [mission_manager_node]: Mission state: PAUSED -> RUNNING
+[INFO] [1788546657.315401800] [mission_manager_node]: Navigation state: PAUSED -> WAITING_FOR_GOAL
+[INFO] [1788546657.315506760] [mission_manager_node]: Mission resumed at waypoint 1
+[INFO] [1788546657.315513927] [mission_manager_node]: Navigation state: WAITING_FOR_GOAL -> NAVIGATING
+[INFO] [1788546657.315519469] [mission_manager_node]: Sending NavigateToPose waypoint 1/1
+[INFO] [1788546657.315797181] [mission_manager_node]: Navigation goal accepted
+[WARN] [1788546661.013689907] [mission_manager_node]: Safety stop received: lidar_safety safety status timeout
+[INFO] [1788546661.013708907] [mission_manager_node]: [SafetyLatency] Safety-to-mission: 0.243 ms
+[INFO] [1788546661.013712324] [mission_manager_node]: Mission state: RUNNING -> PAUSED
+[INFO] [1788546661.013715949] [mission_manager_node]: Navigation state: NAVIGATING -> PAUSED
+[INFO] [1788546661.013736074] [mission_manager_node]: Canceling active navigation goal
+[INFO] [1788546661.075654851] [mission_manager_node]: Navigation canceled
+[INFO] [1788546662.361915977] [mission_manager_node]: Safety recovered/permitted; explicit /mission/resume is required
+[INFO] [1788546662.771006245] [mission_manager_node]: Mission state: PAUSED -> RUNNING
+[INFO] [1788546662.771027162] [mission_manager_node]: Navigation state: PAUSED -> WAITING_FOR_GOAL
+[INFO] [1788546662.771034453] [mission_manager_node]: Mission resumed at waypoint 1
+[INFO] [1788546662.771038995] [mission_manager_node]: Navigation state: WAITING_FOR_GOAL -> NAVIGATING
+[INFO] [1788546662.771046245] [mission_manager_node]: Sending NavigateToPose waypoint 1/1
+[INFO] [1788546662.778537687] [mission_manager_node]: Navigation goal accepted
+[INFO] [1788546772.979633297] [mission_manager_node]: Mission state: RUNNING -> COMPLETED
+[INFO] [1788546772.979673214] [mission_manager_node]: Navigation state: NAVIGATING -> IDLE
+[INFO] [1788546772.979682672] [mission_manager_node]: Waypoint reached
+[INFO] [1788546772.979685881] [mission_manager_node]: Mission 1 completed
+[INFO] [1788546819.051642972] [rclcpp]: signal_handler(SIGINT/SIGTERM)

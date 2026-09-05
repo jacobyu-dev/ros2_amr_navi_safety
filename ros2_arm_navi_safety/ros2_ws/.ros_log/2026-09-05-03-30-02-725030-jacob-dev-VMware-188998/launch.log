@@ -1,0 +1,49 @@
+1788546602.7262890 [INFO] [launch]: All log files can be found below /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/.ros_log/2026-09-05-03-30-02-725030-jacob-dev-VMware-188998
+1788546602.7292283 [INFO] [launch]: Default logging verbosity is set to INFO
+1788546602.7880254 [INFO] [launch.user]: Launching world "empty_0" from: /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/install/amr_simulation_assets/share/amr_simulation_assets/worlds/empty/empty.sdf
+1788546602.7885246 [INFO] [launch.user]: Gazebo transport partition: amr_simulation_188998
+1788546602.7886634 [INFO] [launch.user]: Dynamic obstacle count: 0
+1788546603.2437632 [INFO] [gazebo-1]: process started with pid [189064]
+1788546603.2438743 [INFO] [robot_state_publisher-2]: process started with pid [189065]
+1788546603.2439098 [INFO] [parameter_bridge-3]: process started with pid [189067]
+1788546603.2439339 [INFO] [scan_fault_injector-4]: process started with pid [189068]
+1788546603.2439537 [INFO] [lidar_safety_node-5]: process started with pid [189071]
+1788546603.2439721 [INFO] [tf_monitor_node-6]: process started with pid [189072]
+1788546603.2439895 [INFO] [sensor_watchdog_node-7]: process started with pid [189073]
+1788546603.2440078 [INFO] [safety_supervisor_node-8]: process started with pid [189074]
+1788546603.2440245 [INFO] [safety_velocity_gate-9]: process started with pid [189077]
+1788546603.2440419 [INFO] [integration_test_navigator-10]: process started with pid [189078]
+1788546603.2440591 [INFO] [mission_manager_node-11]: process started with pid [189086]
+1788546603.2440753 [INFO] [integration_scenario_runner-12]: process started with pid [189087]
+1788546605.2226028 [INFO] [create-13]: process started with pid [189359]
+1788546606.2417130 [INFO] [create-14]: process started with pid [189410]
+1788546606.6092615 [INFO] [create-13]: process has finished cleanly [pid 189359]
+1788546606.6891291 [INFO] [create-14]: process has finished cleanly [pid 189410]
+1788546631.3265092 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1788546631.3670473 [INFO] [integration_scenario_runner-12]: sending signal 'SIGINT' to process[integration_scenario_runner-12]
+1788546631.3676426 [INFO] [mission_manager_node-11]: sending signal 'SIGINT' to process[mission_manager_node-11]
+1788546631.3680849 [INFO] [integration_test_navigator-10]: sending signal 'SIGINT' to process[integration_test_navigator-10]
+1788546631.3686161 [INFO] [safety_velocity_gate-9]: sending signal 'SIGINT' to process[safety_velocity_gate-9]
+1788546631.3692706 [INFO] [safety_supervisor_node-8]: sending signal 'SIGINT' to process[safety_supervisor_node-8]
+1788546631.3699172 [INFO] [sensor_watchdog_node-7]: sending signal 'SIGINT' to process[sensor_watchdog_node-7]
+1788546631.3726959 [INFO] [tf_monitor_node-6]: sending signal 'SIGINT' to process[tf_monitor_node-6]
+1788546631.3734477 [INFO] [lidar_safety_node-5]: sending signal 'SIGINT' to process[lidar_safety_node-5]
+1788546631.3739722 [INFO] [scan_fault_injector-4]: sending signal 'SIGINT' to process[scan_fault_injector-4]
+1788546631.3745811 [INFO] [parameter_bridge-3]: sending signal 'SIGINT' to process[parameter_bridge-3]
+1788546631.3750820 [INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+1788546631.3755517 [INFO] [gazebo-1]: sending signal 'SIGINT' to process[gazebo-1]
+1788546631.4064794 [ERROR] [sensor_watchdog_node-7]: process has died [pid 189073, exit code -2, cmd '/home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/install/sensor_watchdog/lib/sensor_watchdog/sensor_watchdog_node --ros-args -r __node:=sensor_watchdog_node --params-file /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/install/sensor_watchdog/share/sensor_watchdog/config/sensor_watchdog.yaml --params-file /tmp/launch_params_1sb_urti'].
+1788546631.5768719 [INFO] [parameter_bridge-3]: process has finished cleanly [pid 189067]
+1788546631.6398482 [INFO] [safety_supervisor_node-8]: process has finished cleanly [pid 189074]
+1788546631.6948061 [INFO] [safety_velocity_gate-9]: process has finished cleanly [pid 189077]
+1788546631.7222769 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 189065]
+1788546631.7329662 [INFO] [lidar_safety_node-5]: process has finished cleanly [pid 189071]
+1788546631.7331924 [INFO] [integration_scenario_runner-12]: process has finished cleanly [pid 189087]
+1788546631.7482810 [INFO] [scan_fault_injector-4]: process has finished cleanly [pid 189068]
+1788546631.7600546 [INFO] [mission_manager_node-11]: process has finished cleanly [pid 189086]
+1788546631.7608399 [INFO] [tf_monitor_node-6]: process has finished cleanly [pid 189072]
+1788546631.7611015 [INFO] [integration_test_navigator-10]: process has finished cleanly [pid 189078]
+1788546636.3713090 [ERROR] [gazebo-1]: process[gazebo-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1788546636.3718994 [INFO] [gazebo-1]: sending signal 'SIGTERM' to process[gazebo-1]
+1788546636.3806105 [ERROR] [gazebo-1]: process has died [pid 189064, exit code -15, cmd 'ruby /opt/ros/jazzy/opt/gz_tools_vendor/bin/gz sim -r /home/jacob-dev/workspace/ros2_amr_navi_safety/ros2_arm_navi_safety/ros2_ws/install/amr_simulation_assets/share/amr_simulation_assets/worlds/empty/empty.sdf --force-version 8'].
+1788546636.3812058 [INFO] [launch]: process[gazebo-1] was required: shutting down launched system

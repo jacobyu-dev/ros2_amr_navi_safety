@@ -27,6 +27,15 @@ worker. `headless:=true` runs the Gazebo server without the GUI. The launch
 sets `GZ_SIM_RESOURCE_PATH` itself and starts only Gazebo, bridge, robot-state
 publisher, and entity spawners.
 
+The Gazebo GUI defaults to the VM-compatible `ogre` renderer. Use
+`gui_render_engine:=ogre2` only when the host GPU and graphics-memory budget
+support Ogre 2. Headless runs do not start either GUI renderer.
+
+`scan_topic:=/scan/raw` remaps the ROS side of the Gazebo LiDAR bridge. Phase
+15 uses it to place a fault-injection relay before the public `/scan`. The
+launch also bridges the selected world's Gazebo `SetEntityPose` service for
+deterministic obstacle integration tests.
+
 Fixed-count examples:
 
 ```bash
@@ -47,6 +56,10 @@ ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist '{linear: {x: 0.0}, angul
 ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist '{linear: {x: 0.0}, angular: {z: 0.0}}'
 ```
 
+The ROS-side command input can be isolated with `cmd_vel_topic:=<topic>`. The
+integrated Nav2 launch uses `/safety/cmd_vel`, so Gazebo accepts commands only
+after the safety velocity gate.
+
 For a finite-range sample each second while an actor is moving:
 
 ```bash
@@ -54,4 +67,12 @@ ros2 run amr_simulation scan_worker_check
 ```
 
 There is intentionally no Nav2, SLAM, AMCL, mission manager, or safety node in
-this package.
+this package. To run the same worlds with real Nav2, AMCL, Mission Manager,
+Safety Supervisor, and path validation, use:
+
+```bash
+ros2 launch mir_nav2_bringup nav2_world.launch.py world:=warehouse_0
+```
+
+See `mir_nav2_bringup/README.md` for installation, supported variants, and
+validation commands.

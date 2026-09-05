@@ -1,0 +1,8 @@
+[INFO] [1788546650.117101318] [sensor_watchdog_node]: Sensor watchdog started: LiDAR timeout=500 ms, TF monitor timeout=500 ms, startup grace=2000 ms
+[INFO] [1788546650.220100384] [sensor_watchdog_node]: lidar watchdog waiting for first update
+[INFO] [1788546650.220134759] [sensor_watchdog_node]: tf_monitor watchdog waiting for first update
+[INFO] [1788546650.419286662] [sensor_watchdog_node]: tf_monitor watchdog healthy/recovered
+[INFO] [1788546654.718549623] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[ERROR] [1788546661.116830450] [sensor_watchdog_node]: lidar watchdog timeout detected: 513 ms
+[INFO] [1788546662.316836574] [sensor_watchdog_node]: lidar watchdog healthy/recovered
+[INFO] [1788546819.061983345] [rclcpp]: signal_handler(SIGINT/SIGTERM)
