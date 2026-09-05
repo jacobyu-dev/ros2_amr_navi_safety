@@ -22,6 +22,8 @@ def generate_launch_description():
     record_bag = LaunchConfiguration('record_bag')
     bag_output = LaunchConfiguration('bag_output')
     use_test_navigator = LaunchConfiguration('use_test_navigator')
+    enable_path_validator = LaunchConfiguration('enable_path_validator')
+    path_validator_results_directory = LaunchConfiguration('path_validator_results_directory')
     gui_render_engine = LaunchConfiguration('gui_render_engine')
 
     simulation = IncludeLaunchDescription(
@@ -45,6 +47,11 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'use_test_navigator', default_value='true',
             description='Use the deterministic action-compatible test navigator; set false for external Nav2'),
+        DeclareLaunchArgument(
+            'enable_path_validator', default_value='false',
+            description='Launch the observer; meaningful Nav2 evidence requires use_test_navigator:=false'),
+        DeclareLaunchArgument(
+            'path_validator_results_directory', default_value='results'),
         DeclareLaunchArgument('record_bag', default_value='false'),
         DeclareLaunchArgument('bag_output', default_value='integration_test_bag'),
         simulation,
@@ -95,6 +102,22 @@ def generate_launch_description():
                 get_package_share_directory('mission_manager'), 'config', 'mission_manager.yaml'),
                 scenario_config], output='screen'),
         Node(
+            package='nav2_path_validator', executable='nav2_path_validator_node',
+            name='nav2_path_validator', condition=IfCondition(enable_path_validator),
+            parameters=[{
+                'use_sim_time': True,
+                'scenario': 'phase15',
+                'validation_frame': 'odom',
+                'pose_source': 'odom',
+                'completion_source': 'mission_status',
+                'global_path_topic': '/plan',
+                'local_path_topic': '/local_plan',
+                'odom_topic': '/odom',
+                'goal_topic': '/mission/active_goal',
+                'mission_status_topic': '/mission/status',
+                'results_directory': path_validator_results_directory,
+            }], output='screen'),
+        Node(
             package='system_integration_test', executable='integration_scenario_runner',
             name='integration_scenario_runner', parameters=[scenario_config], output='screen'),
         ExecuteProcess(
@@ -103,7 +126,9 @@ def generate_launch_description():
                  '/safety/lidar/obstacle_detected', '/safety/lidar/status',
                  '/safety/watchdog/status', '/safety/status', '/mission/status',
                  '/safety/fault_injection/events', '/integration_test/scenario_state',
-                 '/integration_test/result'],
+                 '/integration_test/result', '/plan', '/local_plan', '/mission/active_goal',
+                 '/nav2_path_validation/actual_trajectory', '/nav2_path_validation/state',
+                 '/nav2_path_validation/result'],
             condition=IfCondition(record_bag), output='screen'),
     ]
     return LaunchDescription(actions)

@@ -99,6 +99,7 @@ private:
   bool require_safety_clear_{true};
   std::string goal_frame_{"map"};
   std::string goal_pose_topic_{"/mission/goal_pose"};
+  std::string active_goal_topic_{"/mission/active_goal"};
   std::uint64_t configured_mission_id_{1U};
   std::vector<double> mission_goal_xs_;
   std::vector<double> mission_goal_ys_;
@@ -108,6 +109,7 @@ private:
   rclcpp::CallbackGroup::SharedPtr service_callback_group_;
   rclcpp::Subscription<arm_navi_safety_interfaces::msg::SafetyStatus>::SharedPtr safety_subscription_;
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr goal_pose_subscription_;
+  rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr active_goal_publisher_;
   rclcpp::Publisher<arm_navi_safety_interfaces::msg::MissionStatus>::SharedPtr status_publisher_;
   rclcpp::Service<Trigger>::SharedPtr start_service_;
   rclcpp::Service<Trigger>::SharedPtr cancel_service_;

@@ -1,0 +1,1 @@
+<img src="./docs/warehouse_test_20260906.gif" width="800">

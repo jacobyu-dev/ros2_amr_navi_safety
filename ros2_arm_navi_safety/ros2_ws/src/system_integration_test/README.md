@@ -127,6 +127,19 @@ ros2 launch system_integration_test integrated_safety_scenario.launch.py record_
 RECORD_BAG=true ./src/system_integration_test/scripts/run_integration_scenario.sh
 ```
 
+The quantitative path observer can be enabled without changing the scenario
+state machine:
+
+```bash
+ros2 launch system_integration_test integrated_safety_scenario.launch.py \
+  use_test_navigator:=false enable_path_validator:=true
+```
+
+This requires a separately running production Nav2 stack publishing `/plan`
+and `/local_plan`. The default `use_test_navigator:=true` backend drives
+velocity directly and publishes no planner/controller path, so it is not a
+valid Nav2 path E2E test and the observer will correctly report FAIL.
+
 ## Expected result
 
 A PASS requires initialization, accepted navigation and measured movement,

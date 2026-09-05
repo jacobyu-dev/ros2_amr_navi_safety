@@ -33,6 +33,7 @@ def generate_test_description():
             'safety_topic': f'{PREFIX}/safety/status',
             'mission_status_topic': f'{PREFIX}/mission/status',
             'goal_pose_topic': f'{PREFIX}/mission/goal_pose',
+            'active_goal_topic': f'{PREFIX}/mission/active_goal',
             'navigate_action_name': f'{PREFIX}/navigate_to_pose',
             'start_service': f'{PREFIX}/mission/start',
             'cancel_service': f'{PREFIX}/mission/cancel',
@@ -54,6 +55,10 @@ class TestMissionManagerNode(unittest.TestCase):
         cls.status = None
         cls.safety_publisher = cls.node.create_publisher(SafetyStatus, f'{PREFIX}/safety/status', 10)
         cls.goal_publisher = cls.node.create_publisher(PoseStamped, f'{PREFIX}/mission/goal_pose', 10)
+        cls.active_goal = None
+        cls.node.create_subscription(
+            PoseStamped, f'{PREFIX}/mission/active_goal',
+            lambda message: setattr(cls, 'active_goal', message), 10)
         cls.node.create_subscription(
             MissionStatus, f'{PREFIX}/mission/status',
             lambda message: setattr(cls, 'status', message), 10)
@@ -136,6 +141,9 @@ class TestMissionManagerNode(unittest.TestCase):
         self.publish_safety(SafetyStatus.SAFE, 'safe before success mission')
         self.call(self.start_client, 'start success mission')
         self.wait_until(
+            lambda: self.active_goal is not None and self.active_goal.pose.position.x == 1.0,
+            'observable first active goal')
+        self.wait_until(
             lambda: self.status is not None and self.status.mission_state == MissionStatus.COMPLETED and
             self.status.navigation_state == MissionStatus.NAVIGATION_IDLE and
             self.status.current_goal_index == 2,
@@ -198,6 +206,10 @@ class TestMissionManagerNode(unittest.TestCase):
         self.set_fake_outcomes(['success'])
         self.publish_safety(SafetyStatus.SAFE, 'safe before external goal')
         self.publish_goal()
+        self.wait_until(
+            lambda: self.active_goal is not None and self.active_goal.pose.position.x == 3.0 and
+            self.active_goal.pose.position.y == -1.0,
+            'observable external active goal')
         self.wait_until(
             lambda: self.status is not None and self.status.mission_state == MissionStatus.COMPLETED and
             self.status.total_goals == 1 and self.status.current_goal_index == 1,
