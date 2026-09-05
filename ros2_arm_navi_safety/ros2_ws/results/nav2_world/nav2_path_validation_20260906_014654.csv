@@ -1,0 +1,2 @@
+timestamp,scenario,goal_x,goal_y,global_path_length,latest_path_length,actual_travel_distance,travel_efficiency,mean_tracking_error,rmse_tracking_error,max_tracking_error,goal_position_error,goal_yaw_error_deg,replan_count,result
+20260906_014654,warehouse_0,7.5,5,9.93223,1.0256,18.5494,1.8676,0.0764603,0.199081,3.07358,3.97414,16.8986,16,FAIL

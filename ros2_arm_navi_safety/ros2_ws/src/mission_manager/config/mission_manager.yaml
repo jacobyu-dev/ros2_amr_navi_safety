@@ -3,6 +3,7 @@ mission_manager_node:
     safety_topic: /safety/status
     mission_status_topic: /mission/status
     goal_pose_topic: /mission/goal_pose
+    active_goal_topic: /mission/active_goal
     navigate_action_name: /navigate_to_pose
     start_service: /mission/start
     cancel_service: /mission/cancel

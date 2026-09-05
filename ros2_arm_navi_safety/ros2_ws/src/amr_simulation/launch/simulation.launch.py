@@ -188,7 +188,11 @@ def _launch(context):
                  '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model',
                  '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
                  f'/world/{gz_world_name}/set_pose@ros_gz_interfaces/srv/SetEntityPose'],
-             remappings=[('/gazebo_tf', '/tf'), ('/scan', LaunchConfiguration('scan_topic'))]),
+             remappings=[
+                 ('/gazebo_tf', '/tf'),
+                 ('/scan', LaunchConfiguration('scan_topic')),
+                 ('/cmd_vel', LaunchConfiguration('cmd_vel_topic')),
+             ]),
         TimerAction(period=2.0, actions=[Node(package='ros_gz_sim', executable='create', name='spawn_mir', output='screen',
              arguments=['-name', 'mir', '-topic', '/robot_description', '-x', x, '-y', y, '-z', '0.20'])]),
     ]
@@ -212,6 +216,8 @@ def generate_launch_description():
             description='Gazebo GUI renderer: ogre is the VM-compatible default; ogre2 is optional'),
         DeclareLaunchArgument('scan_topic', default_value='/scan',
             description='ROS output topic for the Gazebo LiDAR bridge'),
+        DeclareLaunchArgument('cmd_vel_topic', default_value='/cmd_vel',
+            description='ROS input topic for the Gazebo velocity bridge'),
         DeclareLaunchArgument('x', default_value='', description='Override world-specific robot x spawn pose'),
         DeclareLaunchArgument('y', default_value='', description='Override world-specific robot y spawn pose'),
         OpaqueFunction(function=_launch),

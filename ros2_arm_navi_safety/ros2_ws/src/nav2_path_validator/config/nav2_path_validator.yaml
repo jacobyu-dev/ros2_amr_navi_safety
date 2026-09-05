@@ -1,0 +1,30 @@
+nav2_path_validator:
+  ros__parameters:
+    use_sim_time: true
+
+    # These are standard Nav2 defaults, not hard-coded assumptions. Confirm
+    # them against the running graph and override from launch when different.
+    global_path_topic: /plan
+    local_path_topic: /received_global_plan
+    odom_topic: /odom
+    goal_topic: /mission/active_goal
+    mission_status_topic: /mission/status
+    action_status_topic: /navigate_to_pose/_action/status
+
+    validation_frame: map
+    robot_base_frame: base_link
+    pose_source: tf
+    completion_source: mission_status
+    scenario: observer
+
+    trajectory_sample_distance: 0.02
+    trajectory_sample_period: 0.05
+    path_goal_tolerance: 0.25
+    max_tracking_rmse: 0.30
+    max_tracking_error: 0.70
+    goal_position_tolerance: 0.25
+    goal_yaw_tolerance_deg: 15.0
+    replan_change_threshold: 0.20
+
+    write_csv: true
+    results_directory: results

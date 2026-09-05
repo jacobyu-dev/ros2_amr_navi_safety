@@ -25,6 +25,7 @@
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>lidar_safety</exec_depend>
   <exec_depend>mission_manager</exec_depend>
+  <exec_depend>nav2_path_validator</exec_depend>
   <exec_depend>ros_gz_sim</exec_depend>
   <exec_depend>safety_supervisor</exec_depend>
   <exec_depend>safety_test_tools</exec_depend>

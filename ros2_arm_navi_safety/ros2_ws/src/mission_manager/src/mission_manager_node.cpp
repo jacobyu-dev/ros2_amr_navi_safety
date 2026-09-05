@@ -77,6 +77,8 @@ MissionManagerNode::MissionManagerNode(const rclcpp::NodeOptions & options)
   const auto safety_topic = this->declare_parameter<std::string>("safety_topic", "/safety/status");
   const auto status_topic = this->declare_parameter<std::string>("mission_status_topic", "/mission/status");
   goal_pose_topic_ = this->declare_parameter<std::string>("goal_pose_topic", "/mission/goal_pose");
+  active_goal_topic_ = this->declare_parameter<std::string>(
+    "active_goal_topic", "/mission/active_goal");
   const auto navigate_action_name = this->declare_parameter<std::string>(
     "navigate_action_name", "/navigate_to_pose");
   const auto start_service_name = this->declare_parameter<std::string>(
@@ -101,6 +103,7 @@ MissionManagerNode::MissionManagerNode(const rclcpp::NodeOptions & options)
   validateAbsoluteName(safety_topic, "safety_topic");
   validateAbsoluteName(status_topic, "mission_status_topic");
   validateAbsoluteName(goal_pose_topic_, "goal_pose_topic");
+  validateAbsoluteName(active_goal_topic_, "active_goal_topic");
   validateAbsoluteName(navigate_action_name, "navigate_action_name");
   validateAbsoluteName(start_service_name, "start_service");
   validateAbsoluteName(cancel_service_name, "cancel_service");
@@ -138,6 +141,8 @@ MissionManagerNode::MissionManagerNode(const rclcpp::NodeOptions & options)
   goal_pose_subscription_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
     goal_pose_topic_, reliableQos(),
     std::bind(&MissionManagerNode::handleGoalPose, this, std::placeholders::_1), input_options);
+  active_goal_publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>(
+    active_goal_topic_, rclcpp::QoS(1).reliable().transient_local());
   status_publisher_ = this->create_publisher<arm_navi_safety_interfaces::msg::MissionStatus>(
     status_topic, reliableQos());
   start_service_ = this->create_service<Trigger>(
@@ -499,6 +504,9 @@ void MissionManagerNode::sendCurrentGoal()
     after = snapshotLocked();
   }
   logTransition(before, after);
+  // Expose the exact goal sent through the action client. NavigateToPose goal
+  // requests are services and cannot otherwise be observed as a normal topic.
+  active_goal_publisher_->publish(goal.pose);
   publishStatus();
   RCLCPP_INFO(this->get_logger(), "Sending NavigateToPose waypoint %zu/%zu", after.current_goal_index + 1U,
     after.total_goals);
