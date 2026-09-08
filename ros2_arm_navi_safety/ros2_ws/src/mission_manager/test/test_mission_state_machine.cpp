@@ -52,6 +52,19 @@ TEST(MissionStateMachineTest, NavigationFailureFailsMission)
   EXPECT_EQ(machine.navigationState(), NavigationState::FAILED);
 }
 
+TEST(MissionStateMachineTest, TransientNavigationRetryPreservesRunningMission)
+{
+  MissionStateMachine machine;
+  auto mission = twoGoalMission();
+  ASSERT_TRUE(machine.start(mission));
+  ASSERT_TRUE(machine.beginNavigation());
+  ASSERT_TRUE(machine.retryNavigation());
+  EXPECT_EQ(machine.missionState(), MissionState::RUNNING);
+  EXPECT_EQ(machine.navigationState(), NavigationState::WAITING_FOR_GOAL);
+  EXPECT_EQ(mission.current_goal_index, 0U);
+  EXPECT_TRUE(machine.beginNavigation());
+}
+
 TEST(MissionStateMachineTest, CancelTransitionsRunningMission)
 {
   MissionStateMachine machine;

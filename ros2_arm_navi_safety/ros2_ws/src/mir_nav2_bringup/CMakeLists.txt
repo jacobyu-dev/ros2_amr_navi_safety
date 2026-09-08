@@ -9,6 +9,7 @@ install(DIRECTORY config launch maps
 install(PROGRAMS
   scripts/check_nav2_prerequisites.sh
   scripts/generate_maps.py
+  scripts/gazebo_ground_truth_localizer.py
   scripts/initial_pose_publisher.py
   DESTINATION lib/${PROJECT_NAME})
 
