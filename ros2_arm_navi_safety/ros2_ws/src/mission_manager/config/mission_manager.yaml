@@ -11,6 +11,10 @@ mission_manager_node:
     resume_service: /mission/resume
     executor_threads: 4
     require_safety_clear: true
+    auto_resume_on_safety_recovery: false
+    auto_resume_delay_sec: 1.0
+    max_navigation_retries: 0
+    navigation_retry_delay_sec: 2.0
     goal_frame: map
     mission_id: 1
     mission_goal_xs: [1.0, 2.0]

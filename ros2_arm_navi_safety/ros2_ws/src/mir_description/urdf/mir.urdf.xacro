@@ -37,7 +37,7 @@
     <material>Gazebo/White</material>
   </gazebo>
   <!-- SICK 270-degree LiDAR mounted on the top-front edge of the chassis -->
-  <xacro:sick_lidar prefix="front_laser" parent="base_link" topic="/scan" xyz="0.429646 0.0 0.352" rpy="0 0 0"/>
+  <xacro:sick_lidar prefix="front_laser" parent="base_link" topic="/scan" xyz="0.509646 0.0 0.352" rpy="0 0 0"/>
 
   <!-- IMU Sensor -->
   <xacro:imu_sensor prefix="imu" parent="base_link" topic="/imu" xyz="0.0 0.0 0.25" rpy="0 0 0"/>

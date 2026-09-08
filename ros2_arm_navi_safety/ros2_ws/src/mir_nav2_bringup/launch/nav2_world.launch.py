@@ -62,11 +62,105 @@ def _launch(context):
     headless = LaunchConfiguration('headless')
     rviz = LaunchConfiguration('rviz')
     autostart = LaunchConfiguration('autostart')
+    auto_resume = LaunchConfiguration('auto_resume').perform(context).lower() == 'true'
+    auto_resume_delay_sec = float(
+        LaunchConfiguration('auto_resume_delay_sec').perform(context))
+    navigation_retries = int(LaunchConfiguration('navigation_retries').perform(context))
+    navigation_retry_delay_sec = float(
+        LaunchConfiguration('navigation_retry_delay_sec').perform(context))
+    localization_mode = LaunchConfiguration('localization_mode').perform(context).lower()
+    if localization_mode not in ('simulation', 'amcl'):
+        raise RuntimeError(
+            'localization_mode must be either "simulation" or "amcl", got '
+            f'"{localization_mode}"')
     common_sim = {'use_sim_time': use_sim_time}
+
+    nav2_launch_arguments = {
+        'params_file': params_file,
+        'use_sim_time': use_sim_time,
+        'autostart': autostart,
+        # Nav2 Jazzy evaluates these values in PythonExpression, so
+        # they must be Python boolean literals rather than lowercase
+        # launch booleans.
+        'use_composition': 'False',
+        'use_respawn': 'False',
+        'log_level': LaunchConfiguration('log_level'),
+    }
+
+    if localization_mode == 'simulation':
+        localization_actions = [
+            LogInfo(msg=(
+                'Localization mode=simulation: Gazebo physical pose corrects '
+                'wheel odometry; AMCL is disabled.')),
+            Node(
+                package='mir_nav2_bringup',
+                executable='gazebo_ground_truth_localizer.py',
+                name='gazebo_ground_truth_localizer',
+                parameters=[common_sim, {
+                    'ground_truth_topic': '/simulation/dynamic_pose',
+                    'odom_topic': '/odom',
+                    'map_frame': 'map',
+                    'odom_frame': 'odom',
+                }], output='screen'),
+            TimerAction(period=3.0, actions=[
+                Node(
+                    package='nav2_map_server', executable='map_server',
+                    name='map_server',
+                    parameters=[params_file, {
+                        'use_sim_time': use_sim_time,
+                        'yaml_filename': map_yaml,
+                    }],
+                    arguments=[
+                        '--ros-args', '--log-level',
+                        LaunchConfiguration('log_level'),
+                    ],
+                    output='screen'),
+                Node(
+                    package='nav2_lifecycle_manager', executable='lifecycle_manager',
+                    name='lifecycle_manager_localization',
+                    parameters=[{
+                        'use_sim_time': use_sim_time,
+                        'autostart': autostart,
+                        'node_names': ['map_server'],
+                    }],
+                    arguments=[
+                        '--ros-args', '--log-level',
+                        LaunchConfiguration('log_level'),
+                    ],
+                    output='screen'),
+                IncludeLaunchDescription(
+                    PythonLaunchDescriptionSource(
+                        os.path.join(nav2_share, 'launch', 'navigation_launch.py')),
+                    launch_arguments=nav2_launch_arguments.items()),
+            ]),
+        ]
+    else:
+        localization_actions = [
+            LogInfo(msg=(
+                f'Localization mode=amcl, initial pose: x={initial_x}, '
+                f'y={initial_y}, yaw={initial_yaw}')),
+            TimerAction(period=3.0, actions=[IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(nav2_share, 'launch', 'bringup_launch.py')),
+                launch_arguments={
+                    'map': map_yaml,
+                    **nav2_launch_arguments,
+                    'slam': 'False',
+                    'use_localization': 'True',
+                }.items())]),
+            TimerAction(period=6.0, actions=[Node(
+                package='mir_nav2_bringup', executable='initial_pose_publisher.py',
+                name='world_initial_pose_publisher', parameters=[{
+                    'use_sim_time': use_sim_time,
+                    'x': initial_x,
+                    'y': initial_y,
+                    'yaw': initial_yaw,
+                    'frame_id': 'map',
+                }], output='screen')]),
+        ]
 
     actions = [
         LogInfo(msg=f'Nav2 world={world_name}, map={map_yaml}'),
-        LogInfo(msg=f'AMCL initial pose: x={initial_x}, y={initial_y}, yaw={initial_yaw}'),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(simulation_share, 'launch', 'simulation.launch.py')),
@@ -125,6 +219,10 @@ def _launch(context):
             parameters=[os.path.join(
                 get_package_share_directory('mission_manager'), 'config', 'mission_manager.yaml'),
                 common_sim, {
+                    'auto_resume_on_safety_recovery': auto_resume,
+                    'auto_resume_delay_sec': auto_resume_delay_sec,
+                    'max_navigation_retries': navigation_retries,
+                    'navigation_retry_delay_sec': navigation_retry_delay_sec,
                     'mission_goal_xs': [float(definition['example_goal'][0])],
                     'mission_goal_ys': [float(definition['example_goal'][1])],
                     'mission_goal_yaws': [float(definition['example_goal'][2])],
@@ -145,32 +243,6 @@ def _launch(context):
                     'goal_topic': '/mission/active_goal',
                     'results_directory': LaunchConfiguration('results_directory'),
                 }], output='screen'),
-        TimerAction(period=3.0, actions=[IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(nav2_share, 'launch', 'bringup_launch.py')),
-            launch_arguments={
-                'map': map_yaml,
-                'params_file': params_file,
-                'use_sim_time': use_sim_time,
-                'autostart': autostart,
-                # Nav2 Jazzy evaluates these values in PythonExpression, so
-                # they must be Python boolean literals rather than lowercase
-                # launch booleans.
-                'slam': 'False',
-                'use_localization': 'True',
-                'use_composition': 'False',
-                'use_respawn': 'False',
-                'log_level': LaunchConfiguration('log_level'),
-            }.items())]),
-        TimerAction(period=6.0, actions=[Node(
-            package='mir_nav2_bringup', executable='initial_pose_publisher.py',
-            name='world_initial_pose_publisher', parameters=[{
-                'use_sim_time': use_sim_time,
-                'x': initial_x,
-                'y': initial_y,
-                'yaw': initial_yaw,
-                'frame_id': 'map',
-            }], output='screen')]),
         TimerAction(period=4.0, actions=[IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(nav2_share, 'launch', 'rviz_launch.py')),
@@ -181,6 +253,7 @@ def _launch(context):
                 'use_sim_time': use_sim_time,
             }.items())]),
     ]
+    actions[1:1] = localization_actions
     return actions
 
 
@@ -195,6 +268,23 @@ def generate_launch_description():
         DeclareLaunchArgument('gui_render_engine', default_value='ogre'),
         DeclareLaunchArgument('use_sim_time', default_value='true'),
         DeclareLaunchArgument('autostart', default_value='true'),
+        DeclareLaunchArgument(
+            'localization_mode', default_value='simulation',
+            description=(
+                'simulation uses stable Gazebo odometry; amcl enables laser '
+                'scan localization for localization-specific testing')),
+        DeclareLaunchArgument(
+            'auto_resume', default_value='true',
+            description='Automatically resume a safety-paused mission after SAFE recovery'),
+        DeclareLaunchArgument(
+            'auto_resume_delay_sec', default_value='1.0',
+            description='Continuous SAFE dwell before automatic mission resume'),
+        DeclareLaunchArgument(
+            'navigation_retries', default_value='5',
+            description='Retries of the current waypoint after a transient Nav2 abort'),
+        DeclareLaunchArgument(
+            'navigation_retry_delay_sec', default_value='2.0',
+            description='Delay before retrying a waypoint after a Nav2 abort'),
         DeclareLaunchArgument('rviz', default_value='true'),
         DeclareLaunchArgument('validator', default_value='true'),
         DeclareLaunchArgument('results_directory', default_value='results/nav2_world'),

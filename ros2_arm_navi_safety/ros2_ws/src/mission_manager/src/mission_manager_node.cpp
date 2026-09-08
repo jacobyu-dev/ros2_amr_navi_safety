@@ -91,6 +91,13 @@ MissionManagerNode::MissionManagerNode(const rclcpp::NodeOptions & options)
     "resume_service", "/mission/resume");
   const auto configured_executor_threads = this->declare_parameter<int>("executor_threads", 4);
   require_safety_clear_ = this->declare_parameter<bool>("require_safety_clear", true);
+  auto_resume_on_safety_recovery_ = this->declare_parameter<bool>(
+    "auto_resume_on_safety_recovery", false);
+  auto_resume_delay_sec_ = this->declare_parameter<double>("auto_resume_delay_sec", 1.0);
+  const auto configured_max_navigation_retries = this->declare_parameter<int>(
+    "max_navigation_retries", 0);
+  navigation_retry_delay_sec_ = this->declare_parameter<double>(
+    "navigation_retry_delay_sec", 2.0);
   goal_frame_ = this->declare_parameter<std::string>("goal_frame", "map");
   const auto mission_id = this->declare_parameter<std::int64_t>("mission_id", 1);
   mission_goal_xs_ = this->declare_parameter<std::vector<double>>(
@@ -112,6 +119,14 @@ MissionManagerNode::MissionManagerNode(const rclcpp::NodeOptions & options)
   if (configured_executor_threads <= 0) {
     throw std::invalid_argument("executor_threads must be positive");
   }
+  if (auto_resume_delay_sec_ <= 0.0) {
+    throw std::invalid_argument("auto_resume_delay_sec must be positive");
+  }
+  if (configured_max_navigation_retries < 0 || navigation_retry_delay_sec_ <= 0.0) {
+    throw std::invalid_argument(
+            "max_navigation_retries must be non-negative and navigation_retry_delay_sec positive");
+  }
+  max_navigation_retries_ = static_cast<std::size_t>(configured_max_navigation_retries);
   if (mission_id <= 0) {
     throw std::invalid_argument("mission_id must be positive");
   }
@@ -160,8 +175,13 @@ MissionManagerNode::MissionManagerNode(const rclcpp::NodeOptions & options)
   navigation_client_ = rclcpp_action::create_client<NavigateToPose>(this, navigate_action_name);
 
   RCLCPP_INFO(
-    this->get_logger(), "Mission manager started: action=%s, safety=%s, explicit resume policy=%s",
-    navigate_action_name.c_str(), safety_topic.c_str(), require_safety_clear_ ? "enabled" : "disabled");
+    this->get_logger(),
+    "Mission manager started: action=%s, safety=%s, automatic safety recovery=%s (%.2f s)",
+    navigate_action_name.c_str(), safety_topic.c_str(),
+    auto_resume_on_safety_recovery_ ? "enabled" : "disabled", auto_resume_delay_sec_);
+  RCLCPP_INFO(
+    this->get_logger(), "Transient Nav2 abort retries: %zu (%.2f s delay)",
+    max_navigation_retries_, navigation_retry_delay_sec_);
   RCLCPP_INFO(this->get_logger(), "External navigation goals: %s", goal_pose_topic_.c_str());
   publishStatus();
 }
@@ -266,6 +286,10 @@ void MissionManagerNode::handleMissionStart(
     } else {
       current_mission_ = mission;
       cancel_reason_ = CancelReason::NONE;
+      navigation_retry_count_ = 0U;
+      if (navigation_retry_timer_) {
+        navigation_retry_timer_->cancel();
+      }
       setReasonLocked("mission started");
       response->message = "mission " + std::to_string(current_mission_.mission_id) + " started";
       started = true;
@@ -311,6 +335,10 @@ void MissionManagerNode::handleGoalPose(const geometry_msgs::msg::PoseStamped::S
     } else {
       current_mission_ = std::move(mission);
       cancel_reason_ = CancelReason::NONE;
+      navigation_retry_count_ = 0U;
+      if (navigation_retry_timer_) {
+        navigation_retry_timer_->cancel();
+      }
       setReasonLocked("external navigation goal received");
       started = true;
     }
@@ -348,6 +376,9 @@ void MissionManagerNode::handleMissionCancel(
     canceled = state_machine_.cancel();
     if (canceled) {
       cancel_reason_ = CancelReason::MISSION_CANCEL;
+      if (navigation_retry_timer_) {
+        navigation_retry_timer_->cancel();
+      }
       goal_to_cancel = active_goal_handle_;
       setReasonLocked("mission canceled by request");
       response->message = "mission cancel accepted";
@@ -376,6 +407,9 @@ void MissionManagerNode::handleMissionPause(
     paused = state_machine_.pauseBySafety();
     if (paused) {
       cancel_reason_ = CancelReason::MANUAL_PAUSE;
+      if (navigation_retry_timer_) {
+        navigation_retry_timer_->cancel();
+      }
       goal_to_cancel = active_goal_handle_;
       setReasonLocked("mission paused by request");
       response->message = "mission paused";
@@ -426,6 +460,7 @@ void MissionManagerNode::handleSafetyState(
   GoalHandleNavigateToPose::SharedPtr goal_to_cancel;
   bool transitioned = false;
   bool safety_recovered = false;
+  bool schedule_auto_resume = false;
   {
     std::lock_guard<std::mutex> lock(state_mutex_);
     before = snapshotLocked();
@@ -433,12 +468,23 @@ void MissionManagerNode::handleSafetyState(
     safety_motion_permitted_ = isSafetyMotionPermitted(message->level) && message->data_valid;
     safety_recovered = !was_motion_permitted && safety_motion_permitted_;
     if (isSafetyStop(message->level) || !message->data_valid) {
+      if (auto_resume_timer_) {
+        auto_resume_timer_->cancel();
+      }
+      if (navigation_retry_timer_) {
+        navigation_retry_timer_->cancel();
+      }
       transitioned = state_machine_.pauseBySafety();
       if (transitioned) {
         cancel_reason_ = CancelReason::SAFETY_STOP;
         goal_to_cancel = active_goal_handle_;
         setReasonLocked("paused by safety: " + message->reason);
       }
+    } else if (safety_recovered && auto_resume_on_safety_recovery_ &&
+      cancel_reason_ == CancelReason::SAFETY_STOP &&
+      state_machine_.missionState() == MissionState::PAUSED)
+    {
+      schedule_auto_resume = true;
     }
     after = snapshotLocked();
   }
@@ -470,12 +516,98 @@ void MissionManagerNode::handleSafetyState(
     cancelGoal(goal_to_cancel);
   } else if (isSafetyMotionPermitted(message->level) && message->data_valid) {
     if (safety_recovered) {
-      RCLCPP_INFO(this->get_logger(), "Safety recovered/permitted; explicit /mission/resume is required");
+      if (schedule_auto_resume) {
+        RCLCPP_INFO(
+          this->get_logger(), "Safety recovered; resuming mission after %.2f s clear dwell",
+          auto_resume_delay_sec_);
+        scheduleAutomaticResume();
+      } else {
+        RCLCPP_INFO(
+          this->get_logger(), "Safety recovered/permitted; explicit /mission/resume is required");
+      }
     }
     // Also make the current state observable for subscribers that connect
     // after startup. Safety recovery intentionally changes no lifecycle state.
     publishStatus();
   }
+}
+
+void MissionManagerNode::scheduleAutomaticResume()
+{
+  if (auto_resume_timer_) {
+    auto_resume_timer_->cancel();
+  }
+  const auto delay = std::chrono::duration_cast<std::chrono::nanoseconds>(
+    std::chrono::duration<double>(auto_resume_delay_sec_));
+  auto_resume_timer_ = this->create_wall_timer(
+    delay, std::bind(&MissionManagerNode::handleAutomaticResume, this),
+    service_callback_group_);
+}
+
+void MissionManagerNode::handleAutomaticResume()
+{
+  Snapshot before;
+  Snapshot after;
+  bool resumed = false;
+  {
+    std::lock_guard<std::mutex> lock(state_mutex_);
+    if (auto_resume_timer_) {
+      auto_resume_timer_->cancel();
+    }
+    before = snapshotLocked();
+    if (auto_resume_on_safety_recovery_ && safety_motion_permitted_ &&
+      cancel_reason_ == CancelReason::SAFETY_STOP)
+    {
+      resumed = state_machine_.resume(true);
+    }
+    if (resumed) {
+      cancel_reason_ = CancelReason::NONE;
+      setReasonLocked("mission resumed automatically after safety recovery");
+    }
+    after = snapshotLocked();
+  }
+  if (!resumed) {
+    return;
+  }
+  RCLCPP_INFO(
+    this->get_logger(), "Mission automatically resumed at waypoint %zu",
+    after.current_goal_index + 1U);
+  logTransition(before, after);
+  publishStatus();
+  sendCurrentGoal();
+}
+
+void MissionManagerNode::scheduleNavigationRetry()
+{
+  if (navigation_retry_timer_) {
+    navigation_retry_timer_->cancel();
+  }
+  const auto delay = std::chrono::duration_cast<std::chrono::nanoseconds>(
+    std::chrono::duration<double>(navigation_retry_delay_sec_));
+  navigation_retry_timer_ = this->create_wall_timer(
+    delay, std::bind(&MissionManagerNode::handleNavigationRetry, this),
+    service_callback_group_);
+}
+
+void MissionManagerNode::handleNavigationRetry()
+{
+  bool retry = false;
+  {
+    std::lock_guard<std::mutex> lock(state_mutex_);
+    if (navigation_retry_timer_) {
+      navigation_retry_timer_->cancel();
+    }
+    retry = safety_motion_permitted_ &&
+      state_machine_.missionState() == MissionState::RUNNING &&
+      state_machine_.navigationState() == NavigationState::WAITING_FOR_GOAL;
+  }
+  if (!retry) {
+    return;
+  }
+  RCLCPP_INFO(
+    this->get_logger(), "Retrying NavigateToPose waypoint after transient abort (%zu/%zu)",
+    navigation_retry_count_, max_navigation_retries_);
+  sendCurrentGoal();
 }
 
 void MissionManagerNode::sendCurrentGoal()
@@ -605,6 +737,7 @@ void MissionManagerNode::handleNavigationResult(
   Snapshot before;
   Snapshot after;
   bool send_next = false;
+  bool schedule_retry = false;
   bool handled = false;
   {
     std::lock_guard<std::mutex> lock(state_mutex_);
@@ -617,15 +750,30 @@ void MissionManagerNode::handleNavigationResult(
       case rclcpp_action::ResultCode::SUCCEEDED:
         handled = state_machine_.goalSucceeded(current_mission_);
         if (handled) {
+          navigation_retry_count_ = 0U;
           setReasonLocked(state_machine_.missionState() == MissionState::COMPLETED ?
             "all waypoints reached" : "waypoint reached");
           send_next = state_machine_.navigationState() == NavigationState::WAITING_FOR_GOAL;
         }
         break;
       case rclcpp_action::ResultCode::ABORTED:
-        handled = state_machine_.navigationFailed();
-        if (handled) {
-          setReasonLocked("navigation action aborted");
+        if (safety_motion_permitted_ &&
+          navigation_retry_count_ < max_navigation_retries_)
+        {
+          handled = state_machine_.retryNavigation();
+          if (handled) {
+            ++navigation_retry_count_;
+            schedule_retry = true;
+            setReasonLocked(
+              "navigation temporarily blocked; retry " +
+              std::to_string(navigation_retry_count_) + "/" +
+              std::to_string(max_navigation_retries_));
+          }
+        } else {
+          handled = state_machine_.navigationFailed();
+          if (handled) {
+            setReasonLocked("navigation action aborted after retry limit");
+          }
         }
         break;
       case rclcpp_action::ResultCode::CANCELED:
@@ -653,11 +801,19 @@ void MissionManagerNode::handleNavigationResult(
   if (result.code == rclcpp_action::ResultCode::SUCCEEDED) {
     RCLCPP_INFO(this->get_logger(), "Waypoint reached");
   } else if (result.code == rclcpp_action::ResultCode::ABORTED) {
-    RCLCPP_ERROR(this->get_logger(), "Navigation failed: action aborted");
+    if (schedule_retry) {
+      RCLCPP_WARN(
+        this->get_logger(), "Navigation temporarily blocked; retrying in %.2f s",
+        navigation_retry_delay_sec_);
+    } else {
+      RCLCPP_ERROR(this->get_logger(), "Navigation failed: action aborted after retry limit");
+    }
   } else if (result.code == rclcpp_action::ResultCode::CANCELED) {
     RCLCPP_INFO(this->get_logger(), "Navigation canceled");
   }
-  if (send_next) {
+  if (schedule_retry) {
+    scheduleNavigationRetry();
+  } else if (send_next) {
     sendCurrentGoal();
   } else if (after.mission_state == MissionState::COMPLETED) {
     RCLCPP_INFO(this->get_logger(), "Mission %lu completed", after.mission_id);

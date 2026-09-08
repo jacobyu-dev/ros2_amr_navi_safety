@@ -2,15 +2,26 @@
 
 No Nav2, AMCL, SLAM, mission, or safety node is included here by design.
 """
+import json
+import math
 import os
+from pathlib import Path
+import subprocess
+import tempfile
+from xml.etree import ElementTree
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, LogInfo, OpaqueFunction, SetEnvironmentVariable, TimerAction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, LogInfo, OpaqueFunction, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
+import xacro
+
+
+# Keep generated world / URDF directories alive until the launch process exits.
+_GENERATED_DIRECTORIES = []
 
 
 BASE_WORLD_FILES = {
@@ -51,12 +62,13 @@ for base_name, file_spec in BASE_WORLD_FILES.items():
         FIXED_OBSTACLE_COUNTS[variant_name] = obstacle_count
         SPAWN_POSES[variant_name] = BASE_SPAWN_POSES[base_name]
 
-# Every worker follows the same local -3 m -> +3 m -> -3 m trajectory from
-# worker.sdf. X/Y/Yaw rotate and translate that segment into collision-free
-# aisles. The first three entries are also used by each *_3 scenario.
+# Each tuple is the centre and heading of a six-metre collision-aware worker
+# path. The worker model starts three metres behind the centre and its
+# TrajectoryFollower moves along local +X. The first three entries are also used
+# by each *_3 scenario.
 WORKER_SPAWNS_BY_WORLD = {
     'empty': [
-        ('0.0', '0.0', '0.0'),
+        ('0.0', '0.0', '3.14159265'),
         ('0.0', '0.0', '1.5708'),
         ('0.0', '3.0', '0.0'),
         ('-6.0', '0.0', '1.5708'),
@@ -104,7 +116,7 @@ WORKER_SPAWNS_BY_WORLD = {
         ('2.0', '-6.3', '1.5708'),
     ],
     'warehouse': [
-        ('0.0', '-0.75', '0.0'),
+        ('0.0', '-0.75', '3.14159265'),
         ('-2.8', '0.0', '1.5708'),
         ('2.8', '0.0', '1.5708'),
         ('0.0', '4.2', '0.0'),
@@ -150,8 +162,95 @@ def _launch(context):
     worker_spawns = WORKER_SPAWNS_BY_WORLD[base_world_name]
     x = LaunchConfiguration('x').perform(context) or SPAWN_POSES[world_name][0]
     y = LaunchConfiguration('y').perform(context) or SPAWN_POSES[world_name][1]
-    robot_description = ParameterValue(
-        Command(['xacro ', os.path.join(mir_description, 'urdf', 'mir.urdf.xacro')]), value_type=str)
+    robot_xacro = os.path.join(mir_description, 'urdf', 'mir.urdf.xacro')
+    robot_description_xml = xacro.process_file(robot_xacro).toxml()
+    robot_description = ParameterValue(robot_description_xml, value_type=str)
+    worker_sdf = os.path.join(assets, 'actors', 'warehouse_worker', 'worker.sdf')
+
+    # Rendering sensors and moving models inserted after Gazebo starts can be
+    # absent from the Ogre2 sensor scene. Build one private, expanded world so
+    # every entity is present before the renderer initializes.
+    generated_directory = tempfile.TemporaryDirectory(prefix='amr_simulation_')
+    _GENERATED_DIRECTORIES.append(generated_directory)
+    generated_path = Path(generated_directory.name)
+    robot_urdf = generated_path / 'mir.urdf'
+    robot_urdf.write_text(robot_description_xml, encoding='utf-8')
+    robot_include = (
+        '\n    <include>\n'
+        f'      <uri>{robot_urdf.as_uri()}</uri>\n'
+        '      <name>mir</name>\n'
+        f'      <pose>{x} {y} 0.20 0 0 0</pose>\n'
+        '    </include>\n'
+        '    <model name="mir_lidar_proxy">\n'
+        '      <static>true</static>\n'
+        f'      <pose>{x} {y} 0 0 0 0</pose>\n'
+        '      <link name="link">\n'
+        '        <sensor name="front_laser_sensor" type="gpu_lidar">\n'
+        '          <pose>0.509646 0 0.352 0 0 0</pose>\n'
+        '          <topic>/scan</topic><gz_frame_id>front_laser_link</gz_frame_id>\n'
+        '          <update_rate>30</update_rate><always_on>true</always_on>\n'
+        '          <lidar><scan>\n'
+        '            <horizontal><samples>720</samples><resolution>1</resolution>'
+        '<min_angle>-2.35619449</min_angle><max_angle>2.35619449</max_angle></horizontal>\n'
+        '            <vertical><samples>2</samples><resolution>1</resolution>'
+        '<min_angle>-0.001</min_angle><max_angle>0.001</max_angle></vertical>\n'
+        '          </scan><range><min>0.1</min><max>30</max><resolution>0.01</resolution></range>'
+        '<noise><type>gaussian</type><mean>0</mean><stddev>0.01</stddev></noise></lidar>\n'
+        '        </sensor>\n'
+        '      </link>\n'
+        '    </model>\n'
+    )
+    worker_includes = []
+    worker_paths = []
+    for index, (worker_x, worker_y, worker_yaw) in enumerate(
+            worker_spawns[:worker_count], start=1):
+        centre_x = float(worker_x)
+        centre_y = float(worker_y)
+        yaw = float(worker_yaw)
+        start_x = centre_x - 3.0 * math.cos(yaw)
+        start_y = centre_y - 3.0 * math.sin(yaw)
+        end_x = centre_x + 3.0 * math.cos(yaw)
+        end_y = centre_y + 3.0 * math.sin(yaw)
+        worker_name = f'warehouse_worker_{index}'
+        worker_paths.append((worker_name, start_x, start_y, end_x, end_y))
+        worker_includes.append(
+            '    <include>\n'
+            f'      <uri>{Path(worker_sdf).as_uri()}</uri>\n'
+            f'      <name>{worker_name}</name>\n'
+            f'      <pose>{start_x} {start_y} 0.02 0 0 {worker_yaw}</pose>\n'
+            '    </include>\n')
+    robot_include += ''.join(worker_includes)
+    included_world = generated_path / f'included_{filename}'
+    world_xml = Path(world_file).read_text(encoding='utf-8')
+    if '</world>' not in world_xml:
+        raise RuntimeError(f'World file has no closing </world> tag: {world_file}')
+    included_world.write_text(
+        world_xml.replace('</world>', robot_include + '  </world>', 1),
+        encoding='utf-8')
+    expanded = subprocess.run(
+        ['gz', 'sdf', '-p', str(included_world)],
+        check=True, capture_output=True, text=True)
+    expanded_root = ElementTree.fromstring(expanded.stdout)
+    mir_model = expanded_root.find("./world/model[@name='mir']")
+    if mir_model is None:
+        raise RuntimeError('Generated world does not contain the MiR model')
+    for link in mir_model.findall('.//link'):
+        for sensor in list(link.findall('sensor')):
+            if sensor.get('type') in ('gpu_lidar', 'camera', 'depth_camera', 'rgbd_camera'):
+                link.remove(sensor)
+    for visual in mir_model.findall('.//visual'):
+        flags = visual.find('visibility_flags')
+        if flags is None:
+            flags = ElementTree.SubElement(visual, 'visibility_flags')
+        flags.text = '0x02'
+    for lidar in expanded_root.findall(".//sensor[@type='gpu_lidar']/lidar"):
+        mask = lidar.find('visibility_mask')
+        if mask is None:
+            mask = ElementTree.SubElement(lidar, 'visibility_mask')
+        mask.text = '0x01'
+    generated_world = generated_path / filename
+    ElementTree.ElementTree(expanded_root).write(
+        generated_world, encoding='utf-8', xml_declaration=True)
     resource_path = ':'.join(filter(None, [
         assets,
         os.path.join(assets, 'models'),
@@ -162,7 +261,22 @@ def _launch(context):
     # transport partition, a new GUI can attach to an older world that was
     # left running after an interrupted launch.
     partition = f'amr_simulation_{os.getpid()}'
-    gz_args = ('-r -s ' if headless else f'-r --render-engine-gui {gui_render_engine} ') + world_file
+    # GPU LiDAR is a rendering sensor. Server-only mode needs explicit headless
+    # rendering; `-s` alone can leave every scan ray at +inf.
+    gz_args = (
+        '-r -s --headless-rendering '
+        if headless else f'-r --render-engine-gui {gui_render_engine} '
+    ) + str(generated_world)
+    worker_path_parameters = json.dumps([
+        {
+            'name': name,
+            'start_x': start_x,
+            'start_y': start_y,
+            'end_x': end_x,
+            'end_y': end_y,
+        }
+        for name, start_x, start_y, end_x, end_y in worker_paths
+    ])
     actions = [
         SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', resource_path),
         SetEnvironmentVariable('GZ_PARTITION', partition),
@@ -185,23 +299,37 @@ def _launch(context):
                  '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo',
                  '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
                  '/gazebo_tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
+                 f'/world/{gz_world_name}/dynamic_pose/info@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
                  '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model',
                  '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
                  f'/world/{gz_world_name}/set_pose@ros_gz_interfaces/srv/SetEntityPose'],
              remappings=[
                  ('/gazebo_tf', '/tf'),
-                 ('/scan', LaunchConfiguration('scan_topic')),
+                 (f'/world/{gz_world_name}/dynamic_pose/info',
+                  '/simulation/dynamic_pose'),
+                 ('/scan', '/scan/rendered'),
                  ('/cmd_vel', LaunchConfiguration('cmd_vel_topic')),
              ]),
-        TimerAction(period=2.0, actions=[Node(package='ros_gz_sim', executable='create', name='spawn_mir', output='screen',
-             arguments=['-name', 'mir', '-topic', '/robot_description', '-x', x, '-y', y, '-z', '0.20'])]),
+        Node(package='amr_simulation', executable='worker_motion_controller',
+             name='worker_motion_controller', output='screen', parameters=[{
+                 'set_pose_service': f'/world/{gz_world_name}/set_pose',
+                 'paths_json': worker_path_parameters,
+                 'speed': 0.35,
+                 'odom_topic': '/odom',
+                 'ground_truth_topic': '/simulation/dynamic_pose',
+                 'robot_clearance': 0.90,
+             }]),
+        Node(package='amr_simulation', executable='scan_2d_projector', name='scan_2d_projector',
+             output='screen', remappings=[('/scan', LaunchConfiguration('scan_topic'))],
+             parameters=[{
+                 'render_dropout_hold_sec': 0.25,
+                 'set_pose_service': f'/world/{gz_world_name}/set_pose',
+                 'world_start_x': float(x),
+                 'world_start_y': float(y),
+                 'worker_count': worker_count,
+                 'worker_radius': 0.30,
+             }]),
     ]
-    worker_sdf = os.path.join(assets, 'actors', 'warehouse_worker', 'worker.sdf')
-    for index, (worker_x, worker_y, worker_yaw) in enumerate(worker_spawns[:worker_count], start=1):
-        actions.append(TimerAction(period=4.0 + 0.35 * (index - 1), actions=[Node(
-            package='ros_gz_sim', executable='create', name=f'spawn_warehouse_worker_{index}', output='screen',
-            arguments=['-file', worker_sdf, '-name', f'warehouse_worker_{index}',
-                       '-x', worker_x, '-y', worker_y, '-z', '0', '-Y', worker_yaw])]))
     return actions
 
 

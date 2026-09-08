@@ -47,6 +47,7 @@ public:
   [[nodiscard]] bool start(const Mission & mission) noexcept;
   [[nodiscard]] bool beginNavigation() noexcept;
   [[nodiscard]] bool goalSucceeded(Mission & mission) noexcept;
+  [[nodiscard]] bool retryNavigation() noexcept;
   [[nodiscard]] bool navigationFailed() noexcept;
   [[nodiscard]] bool pauseBySafety() noexcept;
   [[nodiscard]] bool cancel() noexcept;
