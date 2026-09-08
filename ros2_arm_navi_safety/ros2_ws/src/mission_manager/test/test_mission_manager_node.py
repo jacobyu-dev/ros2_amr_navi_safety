@@ -39,6 +39,10 @@ def generate_test_description():
             'cancel_service': f'{PREFIX}/mission/cancel',
             'pause_service': f'{PREFIX}/mission/pause',
             'resume_service': f'{PREFIX}/mission/resume',
+            'auto_resume_on_safety_recovery': True,
+            'auto_resume_delay_sec': 0.1,
+            'max_navigation_retries': 1,
+            'navigation_retry_delay_sec': 0.1,
             'mission_id': 10,
             'mission_goal_xs': [1.0, 2.0],
             'mission_goal_ys': [0.0, 1.0],
@@ -150,7 +154,9 @@ class TestMissionManagerNode(unittest.TestCase):
             'mission completion after both goals')
 
     def test_b_navigation_abort_fails_mission(self):
-        self.set_fake_outcomes(['abort'])
+        # The first transient abort retries the retained waypoint. The second
+        # reaches the configured retry limit and fails the mission.
+        self.set_fake_outcomes(['abort', 'abort'])
         self.publish_safety(SafetyStatus.SAFE, 'safe before abort mission')
         self.call(self.start_client, 'start abort mission')
         self.wait_until(
@@ -158,7 +164,7 @@ class TestMissionManagerNode(unittest.TestCase):
             self.status.navigation_state == MissionStatus.NAVIGATION_FAILED,
             'failed mission after action abort')
 
-    def test_c_and_d_safety_stop_requires_explicit_resume(self):
+    def test_c_and_d_safety_stop_resumes_automatically_after_clear_dwell(self):
         self.set_fake_outcomes(['hold', 'hold'])
         self.publish_safety(SafetyStatus.SAFE, 'safe before safety scenario')
         self.call(self.start_client, 'start held mission')
@@ -173,15 +179,11 @@ class TestMissionManagerNode(unittest.TestCase):
             self.status.current_goal_index == 0,
             'mission paused and waypoint retained')
         self.publish_safety(SafetyStatus.SAFE, 'safety recovered')
-        for _ in range(10):
-            rclpy.spin_once(self.node, timeout_sec=0.03)
-        self.assertEqual(self.status.mission_state, MissionStatus.PAUSED)
-        self.call(self.resume_client, 'explicit resume')
         self.wait_until(
             lambda: self.status is not None and self.status.mission_state == MissionStatus.RUNNING and
             self.status.navigation_state == MissionStatus.NAVIGATING and
             self.status.current_goal_index == 0,
-            'resumed navigation at retained waypoint')
+            'automatic navigation resume at retained waypoint')
         self.call(self.cancel_client, 'cleanup safety scenario')
         self.wait_until(
             lambda: self.status is not None and self.status.mission_state == MissionStatus.CANCELED,

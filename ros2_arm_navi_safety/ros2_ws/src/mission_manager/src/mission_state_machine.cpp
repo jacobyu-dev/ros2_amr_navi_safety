@@ -86,6 +86,17 @@ bool MissionStateMachine::navigationFailed() noexcept
   return true;
 }
 
+bool MissionStateMachine::retryNavigation() noexcept
+{
+  if (mission_state_ != MissionState::RUNNING ||
+    navigation_state_ != NavigationState::NAVIGATING)
+  {
+    return false;
+  }
+  navigation_state_ = NavigationState::WAITING_FOR_GOAL;
+  return true;
+}
+
 bool MissionStateMachine::pauseBySafety() noexcept
 {
   if (mission_state_ != MissionState::RUNNING ||

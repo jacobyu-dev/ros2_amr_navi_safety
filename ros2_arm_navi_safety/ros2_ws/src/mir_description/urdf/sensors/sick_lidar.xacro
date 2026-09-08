@@ -20,11 +20,18 @@
       <child link="${prefix}_link"/>
       <origin xyz="${xyz}" rpy="${rpy}"/>
     </joint>
+    <!-- Keep the sensor on its own SDF link. If libsdformat lumps this fixed
+         joint into the chassis, Ogre2 can exclude the whole rendered scene. -->
+    <gazebo reference="${parent}_to_${prefix}_joint">
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
 
     <!-- Scanner link with visual/collision/inertial -->
     <link name="${prefix}_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <!-- The TF frame is at the optical window; the housing extends 8 cm
+             behind it so ray origin and Nav2 geometry use one reference. -->
+        <origin xyz="-0.08 0 0" rpy="0 0 0"/>
         <geometry>
           <mesh filename="package://mir_description/meshes/visual/sick_lms-100.stl"/>
         </geometry>
@@ -33,19 +40,19 @@
         </material>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="-0.08 0 0" rpy="0 0 0"/>
         <geometry>
           <mesh filename="package://mir_description/meshes/visual/sick_lms-100.stl"/>
         </geometry>
       </collision>
       <inertial>
         <mass value="1.2"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="-0.08 0 0" rpy="0 0 0"/>
         <inertia ixx="0.005825" ixy="0" ixz="0" iyy="0.005856" iyz="0" izz="0.004836"/>
       </inertial>
     </link>
 
-    <!-- Gazebo Harmonic sensor: gpu_lidar.
+    <!-- Gazebo Harmonic GPU LiDAR.
          The <sensor> block lives inside <gazebo reference="..."> so it is
          correctly associated with the link in the SDF that Gazebo generates. -->
     <gazebo reference="${prefix}_link">
@@ -54,6 +61,7 @@
         <diffuse>0.1 0.1 0.1 1</diffuse>
       </material>
       <sensor name="${prefix}_sensor" type="gpu_lidar">
+        <!-- The link / TF origin is the front optical window. -->
         <pose>0 0 0 0 0 0</pose>
         <topic>${topic}</topic>
         <gz_frame_id>${prefix}_link</gz_frame_id>
@@ -66,14 +74,17 @@
               <!-- 270° FOV: -135° to +135° -->
               <samples>720</samples>
               <resolution>1</resolution>
-              <min_angle>-1.5707963</min_angle>
-              <max_angle>1.5707963</max_angle>
+              <min_angle>-2.35619449</min_angle>
+              <max_angle>2.35619449</max_angle>
             </horizontal>
+            <!-- Ogre2 on VMware produces only +inf for a one-pixel-high GPU
+                 LiDAR target. Render two almost-coplanar rows; the simulation
+                 launch projects them back to one ordinary LaserScan row. -->
             <vertical>
-              <samples>1</samples>
+              <samples>2</samples>
               <resolution>1</resolution>
-              <min_angle>0</min_angle>
-              <max_angle>0</max_angle>
+              <min_angle>-0.001</min_angle>
+              <max_angle>0.001</max_angle>
             </vertical>
           </scan>
           <range>
