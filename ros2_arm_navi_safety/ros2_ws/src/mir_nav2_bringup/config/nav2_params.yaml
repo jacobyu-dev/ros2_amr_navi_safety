@@ -116,6 +116,9 @@ local_costmap:
           data_type: LaserScan
           clearing: true
           marking: true
+          # Gazebo publishes +inf for a ray with no obstacle. Treat it as a
+          # valid clearing ray so moving workers do not leave ghost obstacles.
+          inf_is_valid: true
           obstacle_max_range: 8.0
           obstacle_min_range: 0.05
           raytrace_max_range: 10.0
@@ -152,6 +155,8 @@ global_costmap:
           data_type: LaserScan
           clearing: true
           marking: true
+          # Clear the previous position after a dynamic obstacle moves away.
+          inf_is_valid: true
           obstacle_max_range: 8.0
           obstacle_min_range: 0.05
           raytrace_max_range: 10.0

@@ -18,21 +18,47 @@ Base worlds are `empty`, `maze`, `corridor`, `bookstore`, `warehouse`, and
   cartons, a loading bay, and a building shell (the second attached-image
   style). It does not need Gazebo Fuel or internet access.
 
-Fixed-count variants reuse their base world's SDF and spawn exactly 0, 3, or
-10 scripted workers. Each world has its own aisle-safe worker placement table.
+Fixed-count variants reuse their base world's SDF and include exactly 0, 3, or
+10 collision-aware moving workers before Gazebo starts. Each world has its own
+aisle-safe worker placement table. Workers continuously walk back and forth
+between two waypoints; they are not the former one-way visual-only actors.
 The suffix count takes precedence over the legacy `dynamic_obstacle` argument.
 
 Use `dynamic_obstacle:=true` with `world:=warehouse` to spawn the scripted
 worker. `headless:=true` runs the Gazebo server without the GUI. The launch
 sets `GZ_SIM_RESOURCE_PATH` itself and starts only Gazebo, bridge, robot-state
-publisher, and entity spawners.
+publisher, and the 2D scan projector.
 
 The Gazebo GUI defaults to the VM-compatible `ogre` renderer. Use
 `gui_render_engine:=ogre2` only when the host GPU and graphics-memory budget
-support Ogre 2. Headless runs do not start either GUI renderer.
+support Ogre 2. Headless runs enable Gazebo's offscreen renderer for the GPU
+LiDAR.
 
-`scan_topic:=/scan/raw` remaps the ROS side of the Gazebo LiDAR bridge. Phase
-15 uses it to place a fault-injection relay before the public `/scan`. The
+## Safety LiDAR path
+
+Gazebo Sim 8 / Ogre2 on some virtual GPUs has two relevant renderer defects:
+one-row LiDAR targets can produce empty frames, and moving visuals can be absent
+from the GPU sensor scene. The simulation launch therefore uses one dedicated
+270-degree LiDAR proxy which follows `/odom`, renders two nearly coplanar rows,
+and projects them to one 720-ray ROS `LaserScan`.
+
+The worker motion controller repeatedly moves each solid collision model between
+two world waypoints and publishes its pose. A worker yields before entering a
+0.90 m clearance circle around the MiR's physical Gazebo pose, so the kinematic
+worker cannot teleport into the chassis and push it away. The scan projector merges a
+conservative 0.30 m worker radius into the rendered scan, so Nav2 costmaps and
+Collision Monitor still see the worker if the virtual GPU omits its visual. A
+fully empty renderer frame holds the last obstacle-bearing scan for at most
+0.25 seconds, rejecting a single-frame dropout without delaying recovery after
+the worker moves away.
+
+The current VM-safe launch removes the MiR RGB-D render sensors because a second
+render sensor makes this Gazebo/Ogre2 combination return empty LiDAR frames.
+The camera bridge names remain reserved for compatibility, but camera messages
+are intentionally unavailable in this safety-priority mode.
+
+`scan_topic:=/scan/raw` remaps the projected 2D LiDAR output. Phase 15 uses it
+to place a fault-injection relay before the public `/scan`. The
 launch also bridges the selected world's Gazebo `SetEntityPose` service for
 deterministic obstacle integration tests.
 

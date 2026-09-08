@@ -13,6 +13,12 @@ safety data pause an active mission, cancel the Nav2 goal, and retain the
 current waypoint. A later safe status never restarts it; `/mission/resume` is
 required.
 
+That explicit behavior remains the default. Integrations may enable
+`auto_resume_on_safety_recovery` with a positive `auto_resume_delay_sec`.
+Temporary NavigateToPose abort retries are independently controlled by
+`max_navigation_retries` and `navigation_retry_delay_sec`; the defaults keep
+retrying disabled.
+
 ## Synchronization
 
 Safety input is reentrant, while user services are mutually exclusive. A single

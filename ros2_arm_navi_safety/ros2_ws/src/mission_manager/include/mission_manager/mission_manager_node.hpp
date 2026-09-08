@@ -61,6 +61,10 @@ private:
   void handleMissionResume(
     const Trigger::Request::SharedPtr request, Trigger::Response::SharedPtr response);
   void handleSafetyState(const arm_navi_safety_interfaces::msg::SafetyStatus::SharedPtr message);
+  void scheduleAutomaticResume();
+  void handleAutomaticResume();
+  void scheduleNavigationRetry();
+  void handleNavigationRetry();
   void handleGoalPose(const geometry_msgs::msg::PoseStamped::SharedPtr message);
 
   void sendCurrentGoal();
@@ -97,6 +101,11 @@ private:
 
   std::size_t executor_threads_{4U};
   bool require_safety_clear_{true};
+  bool auto_resume_on_safety_recovery_{false};
+  double auto_resume_delay_sec_{1.0};
+  std::size_t max_navigation_retries_{0U};
+  std::size_t navigation_retry_count_{0U};
+  double navigation_retry_delay_sec_{2.0};
   std::string goal_frame_{"map"};
   std::string goal_pose_topic_{"/mission/goal_pose"};
   std::string active_goal_topic_{"/mission/active_goal"};
@@ -107,6 +116,8 @@ private:
 
   rclcpp::CallbackGroup::SharedPtr input_callback_group_;
   rclcpp::CallbackGroup::SharedPtr service_callback_group_;
+  rclcpp::TimerBase::SharedPtr auto_resume_timer_;
+  rclcpp::TimerBase::SharedPtr navigation_retry_timer_;
   rclcpp::Subscription<arm_navi_safety_interfaces::msg::SafetyStatus>::SharedPtr safety_subscription_;
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr goal_pose_subscription_;
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr active_goal_publisher_;
